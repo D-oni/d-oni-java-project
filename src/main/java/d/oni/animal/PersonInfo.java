@@ -1,4 +1,4 @@
-package com.bitcamp.myproject;
+package d.oni.animal;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -8,52 +8,61 @@ public class PersonInfo {
   public static void main(String[] args) {
 
     Scanner keyboard = new Scanner(System.in);
+    
+    class Info{
+      int no;
+      String name;
+      int num;
+      String mail;
+      String add;
+      String photo;
+      String phone;
+      String registeredDate;
+      Date date;
+      int viewCount;
+      
+    }
 
-    int[] no = new int[100];
-    String[] name = new String[100];
-    int[] num = new int[100];
-    String[] mail = new String[100];
-    String[] add = new String[100];
-    String[] photo = new String[100];
-    String[] phone = new String[100];
-    String[] registeredDate=new String[100];
-    Date[] date = new Date[100];
-    int[] viewCount = new int[100];
-    String response;
+    final int SIZE=100;
+    Info[] infomations = new Info[SIZE];
 
     int count=0;
-    for(int i =0; i<3; i++) {
+    String response;
+    
+    for(int i =0; i<100; i++) {
+      Info infomation = new Info();
 
       System.out.println("번호: ");
-      no[i] = keyboard.nextInt();
+      infomation.no = keyboard.nextInt();
       keyboard.nextLine();
 
       System.out.println("이름: ");
-      name[i]=keyboard.nextLine();
+      infomation.name=keyboard.nextLine();
 
       System.out.println("동물등록번호 : ");
-      num[i]=keyboard.nextInt();
+      infomation.num=keyboard.nextInt();
       keyboard.nextLine();
 
       System.out.println("이메일: ");
-      mail[i]=keyboard.nextLine();
+      infomation.mail=keyboard.nextLine();
 
       System.out.println("주소 : ");
-      add[i]=keyboard.nextLine();
+      infomation.add=keyboard.nextLine();
 
       System.out.println("사진 : ");
-      photo[i]=keyboard.nextLine();
+      infomation.photo=keyboard.nextLine();
 
       System.out.println("전화번호 : ");
-      phone[i]=keyboard.nextLine();
+      infomation.phone=keyboard.nextLine();
       
       System.out.println("가입일 : ");
-      registeredDate[i]=keyboard.nextLine();
+      infomation.registeredDate=keyboard.nextLine();
 
-      date[i] = new Date(System.currentTimeMillis());
+      infomation.date = new Date(System.currentTimeMillis());
 
-      viewCount[i]=0;
+      infomation.viewCount=0;
 
+      infomations[i]=infomation;
       count++;
 
       System.out.println();
@@ -69,8 +78,9 @@ public class PersonInfo {
     System.out.println();
 
     for(int i=0; i<count;i++) { 
+      Info infomation = infomations[i];
       System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s,%s,%d\n",
-          no[i], name[i], num[i], mail[i], add[i], photo[i], phone[i], registeredDate[i], date[i], viewCount[i]);
+          infomation.no, infomation.name, infomation.num, infomation.mail, infomation.add, infomation.photo, infomation.phone, infomation.registeredDate, infomation.date, infomation.viewCount);
     }
 
 

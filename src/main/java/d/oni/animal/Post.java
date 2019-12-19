@@ -1,6 +1,4 @@
-
-package com.bitcamp.myproject;
-
+package d.oni.animal;
 import java.sql.Date;
 import java.util.Scanner;
 
@@ -9,32 +7,41 @@ public class Post {
 
     Scanner keyboard = new Scanner(System.in);
 
-    int[] num = new int[100];
-    String[] text = new String[100];
-    Date[] date = new Date[100];
-    int[] viewCount = new int[100];
-    int[] scrap = new int[100];
+    class Board{
+      int num;
+      String text;
+      Date date;
+      int viewCount;
+      int scrap;
+      String response;
+    }
+    final int SIZE = 100;
+    Board[] boards = new Board[SIZE];
+    
     String response;
-
     int count=0;
+    
     for(int i=0; i<3; i++) {
+      Board board = new Board();
+      
       System.out.println("번호: ");
-      num[i]=keyboard.nextInt();
+      board.num=keyboard.nextInt();
       keyboard.nextLine();
 
       System.out.println("내용: ");
-      text[i]=keyboard.nextLine();
+      board.text=keyboard.nextLine();
       
 
       System.out.println("스크랩 수: ");
-      scrap[i]=keyboard.nextInt();
+      board.scrap=keyboard.nextInt();
 
       keyboard.nextLine();
       
-      date[i]=new Date(System.currentTimeMillis());
+      board.date=new Date(System.currentTimeMillis());
       
-
-      viewCount[i]=0;
+      boards[i]=board;
+      
+      board.viewCount=0;
       count++;
       
       System.out.println();
@@ -52,8 +59,9 @@ public class Post {
 
 
     for(int i=0;i<count; i++) {
+      Board board = boards[i];
       System.out.printf("%d, %s, %d, %s, %d\n",
-          num[i], text[i], scrap[i], date[i], viewCount[i]);
+          board.num, board.text, board.scrap, board.date, board.viewCount);
     }
 
 

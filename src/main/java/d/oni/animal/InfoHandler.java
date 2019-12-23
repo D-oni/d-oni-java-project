@@ -3,13 +3,10 @@ package d.oni.animal;
 import java.sql.Date;
 import java.util.Scanner;
 
-public class PersonInfo {
+public class InfoHandler {
 
-  public static void main(String[] args) {
 
-    Scanner keyboard = new Scanner(System.in);
-    
-    class Info{
+    static class Info{
       int no;
       String name;
       int num;
@@ -23,13 +20,13 @@ public class PersonInfo {
       
     }
 
-    final int SIZE=100;
-    Info[] infomations = new Info[SIZE];
-
-    int count=0;
-    String response;
+    static final int Info_SIZE=100;
+    static Info[] infomations = new Info[Info_SIZE];
+    static int Info_count=0;
+    static Scanner keyboard;
     
-    for(int i =0; i<100; i++) {
+    static void addInfo() {
+    
       Info infomation = new Info();
 
       System.out.println("번호: ");
@@ -62,25 +59,15 @@ public class PersonInfo {
 
       infomation.viewCount=0;
 
-      infomations[i]=infomation;
-      count++;
-
-      System.out.println();
-
-      System.out.println("계속 입력하시겠습니까?(Y/n)");
-      response = keyboard.nextLine();
-      if(!response.equalsIgnoreCase("y")){
-        break;
+      infomations[Info_count++]=infomation;
+   
       }
-    }
-
-    keyboard.close();
-    System.out.println();
-
-    for(int i=0; i<count;i++) { 
-      Info infomation = infomations[i];
+    
+static void listInfo() {
+    for(int i=0; i<Info_count;i++) { 
+      Info in = infomations[i];
       System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s,%s,%d\n",
-          infomation.no, infomation.name, infomation.num, infomation.mail, infomation.add, infomation.photo, infomation.phone, infomation.registeredDate, infomation.date, infomation.viewCount);
+          in.no, in.name, in.num, in.mail, in.add, in.photo, in.phone, in.registeredDate, in.date, in.viewCount);
     }
 
 

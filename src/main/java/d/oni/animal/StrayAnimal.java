@@ -1,6 +1,8 @@
 package d.oni.animal;
-import java.sql.Date;
 import java.util.Scanner;
+import d.oni.animal.handler.AnimalHandler;
+import d.oni.animal.handler.BoardHandler;
+import d.oni.animal.handler.InfoHandler;
 
 
 public class StrayAnimal {
@@ -9,9 +11,13 @@ public class StrayAnimal {
 
     AnimalHandler.keyboard = keyboard;
     InfoHandler.keyboard = keyboard;
-    PostHandler.keyboard = keyboard;
+    BoardHandler.keyboard = keyboard;
 
-
+    BoardHandler 상세정보 = new BoardHandler();
+    BoardHandler 게시판 = new BoardHandler();
+    AnimalHandler 동물정보 = new AnimalHandler();
+    InfoHandler 사용자정보 = new InfoHandler();
+    
     String command;
     do {
       System.out.println("입력> ");
@@ -21,34 +27,40 @@ public class StrayAnimal {
 
         case "/animal/add":
           
-          AnimalHandler.addAnimal();
+          AnimalHandler.addAnimal(동물정보);
           
           break;
         case "/animal/list":
           
-          AnimalHandler.listAnimal();
+          AnimalHandler.listAnimal(동물정보);
           
           break;
         case "/info/add":
           
-          InfoHandler.addInfo();
+          InfoHandler.addInfo(사용자정보);
           
           break;
         case "/info/list":
           
-          InfoHandler.listInfo();
+          InfoHandler.listInfo(사용자정보);
           
           break;
         case "/board/add":
           
-       PostHandler.addBoard();
+       BoardHandler.addBoard(게시판);
        
        break;
         case"/board/list":
           
-          PostHandler.listBoard();
+          BoardHandler.listBoard(게시판);
           
           break;
+        case "/board/detail":
+          
+       BoardHandler.detailBoard(상세정보);
+       
+       break;
+       
         default:
           if(!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -57,10 +69,10 @@ public class StrayAnimal {
       }
 
 
-    }while(!command.equalsIgnoreCase("quit")); {
+    }while(!command.equalsIgnoreCase("quit")); 
       System.out.println("종료!"); 
       keyboard.close();
-    }
+    
 
   }
 }

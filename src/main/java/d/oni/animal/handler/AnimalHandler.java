@@ -1,26 +1,17 @@
-package d.oni.animal;
+package d.oni.animal.handler;
 import java.sql.Date;
 import java.util.Scanner;
+import d.oni.animal.domain.Animal;
 
 public class AnimalHandler {
-
-    static class Animal{
-      int no;
-      String name;
-      String text;
-      int choose;
-      String num;
-      Date date;
-      int viewCount;
-
-    }
-    static final  int animal_SIZE=100;
-    static Animal[] animals = new Animal[animal_SIZE];
-    static int animal_count = 0;
-    static Scanner keyboard;
+   
+     Animal[] animals = new Animal[animal_SIZE];
+     int animal_count = 0;
     
+    public static Scanner keyboard;
+     static final  int animal_SIZE=100;
     
-static void addAnimal() {
+public static void addAnimal(AnimalHandler animalHandler) {
   
           Animal animal = new Animal();
 
@@ -44,13 +35,13 @@ static void addAnimal() {
           animal.date = new Date(System.currentTimeMillis());
           animal.viewCount = 0;
 
-          animals[animal_count++]=animal;
+          animalHandler.animals[animalHandler.animal_count++]=animal;
 
 }
-      static void listAnimal() {
+public static void listAnimal(AnimalHandler animalHandler) {
         
-          for (int i = 0; i < animal_count; i++) {
-            Animal a=animals[i];
+          for (int i = 0; i < animalHandler.animal_count; i++) {
+            Animal a=animalHandler.animals[i];
             System.out.printf("%d, %s, %s, %d, %s, %s, %d\n", 
                 a.no, a.name, a.text, a.choose, a.num, a.date, a.viewCount);
           }

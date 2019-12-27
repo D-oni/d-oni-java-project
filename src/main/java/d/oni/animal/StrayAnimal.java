@@ -9,15 +9,12 @@ public class StrayAnimal {
   static Scanner keyboard = new Scanner(System.in);
   public static void main(String[] args) {
 
-    AnimalHandler.keyboard = keyboard;
-    InfoHandler.keyboard = keyboard;
-    BoardHandler.keyboard = keyboard;
 
-    BoardHandler 상세정보 = new BoardHandler();
-    BoardHandler 게시판 = new BoardHandler();
-    AnimalHandler 동물정보 = new AnimalHandler();
-    InfoHandler 사용자정보 = new InfoHandler();
-    
+    BoardHandler 상세정보 = new BoardHandler(keyboard);
+    BoardHandler 게시판 = new BoardHandler(keyboard);
+    AnimalHandler 동물정보 = new AnimalHandler(keyboard);
+    InfoHandler 사용자정보 = new InfoHandler(keyboard);
+
     String command;
     do {
       System.out.println("입력> ");
@@ -26,41 +23,42 @@ public class StrayAnimal {
       switch(command) {
 
         case "/animal/add":
-          
-          AnimalHandler.addAnimal(동물정보);
-          
+
+          동물정보.addAnimal();
+
           break;
         case "/animal/list":
-          
-          AnimalHandler.listAnimal(동물정보);
-          
+
+          동물정보.listAnimal();
+
           break;
         case "/info/add":
-          
-          InfoHandler.addInfo(사용자정보);
-          
+
+          사용자정보.addInfo();
+
           break;
         case "/info/list":
-          
-          InfoHandler.listInfo(사용자정보);
-          
+
+          사용자정보.listInfo();
+
           break;
         case "/board/add":
-          
-       BoardHandler.addBoard(게시판);
-       
-       break;
+
+          게시판.addBoard();
+
+          break;
         case"/board/list":
-          
-          BoardHandler.listBoard(게시판);
-          
+
+          게시판.listBoard();
+
           break;
         case "/board/detail":
-          
-       BoardHandler.detailBoard(상세정보);
-       
-       break;
-       
+
+          게시판.detailBoard();
+    
+
+          break;
+
         default:
           if(!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -70,9 +68,9 @@ public class StrayAnimal {
 
 
     }while(!command.equalsIgnoreCase("quit")); 
-      System.out.println("종료!"); 
-      keyboard.close();
-    
+    System.out.println("종료!"); 
+    keyboard.close();
+
 
   }
 }

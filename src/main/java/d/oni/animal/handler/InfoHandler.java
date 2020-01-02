@@ -24,34 +24,34 @@ public class InfoHandler {
     Infomation info = new Infomation();
 
     System.out.println("번호: ");
-    info.no = input.nextInt();
+    info.setNo (input.nextInt());
     input.nextLine();
 
     System.out.println("이름: ");
-    info.name=input.nextLine();
+    info.setName(input.nextLine());
 
     System.out.println("동물등록번호 : ");
-    info.num=input.nextInt();
+    info.setNum(input.nextInt());
     input.nextLine();
 
     System.out.println("이메일: ");
-    info.mail=input.nextLine();
+    info.setMail(input.nextLine());
 
     System.out.println("주소 : ");
-    info.add=input.nextLine();
+    info.setAdd(input.nextLine());
 
     System.out.println("사진 : ");
-    info.photo=input.nextLine();
+    info.setPhoto(input.nextLine());
 
     System.out.println("전화번호 : ");
-    info.phone=input.nextLine();
+    info.setPhone(input.nextLine());
 
     System.out.println("가입일 : ");
-    info.registeredDate=input.nextLine();
+    info.setRegisteredDate(input.nextLine());
 
-    info.date = new Date(System.currentTimeMillis());
+    info.setDate(new Date(System.currentTimeMillis()));
 
-    info.viewCount=0;
+    info.setViewCount(0);
 
     this.infomations[this.Info_count++]=info;
 
@@ -61,7 +61,7 @@ public class InfoHandler {
     for(int i=0; i<this.Info_count;i++) { 
       Infomation in = this.infomations[i];
       System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s,%s,%d\n",
-          in.no, in.name, in.num, in.mail, in.add, in.photo, in.phone, in.registeredDate, in.date, in.viewCount);
+          in.getNo(), in.getName(), in.getNum(), in.getMail(), in.getAdd(), in.getPhoto(), in.getPhone(), in.getRegisteredDate(), in.getDate(), in.getViewCount());
     }
 
 

@@ -33,23 +33,22 @@ public class BoardHandler {
     Board board = new Board();
 
     System.out.println("번호: ");
-    board.num=input.nextInt();
+    board.setNum(input.nextInt());
     input.nextLine();
 
     System.out.println("내용: ");
-    board.text=input.nextLine();
-
+    board.setText(input.nextLine());
 
     System.out.println("스크랩 수: ");
-    board.scrap=input.nextInt();
+    board.setScrap(input.nextInt());
 
     input.nextLine();
 
-    board.date=new Date(System.currentTimeMillis());
+    board.setDate(new Date(System.currentTimeMillis()));
 
     this.boards[this.Board_count++]=board;
 
-    board.viewCount=0;
+    board.setViewCount(0);
 
   }
   public void listBoard() {
@@ -57,7 +56,7 @@ public class BoardHandler {
     for(int i=0;i<this.Board_count; i++) {
       Board b = this.boards[i];
       System.out.printf("%d, %s, %d, %s, %d\n",
-          b.num, b.text, b.scrap, b.date, b.viewCount);
+          b.getNum(), b.getText(), b.getScrap(), b.getDate(), b.getViewCount());
     }
 
 
@@ -70,7 +69,7 @@ public class BoardHandler {
     
     Board board = null;
     for (int i = 0; i < this.Board_count; i++) {
-      if (this.boards[i].num == num) {
+      if (this.boards[i].getNum() == num) {
         board = this.boards[i];
         break;
       }
@@ -81,11 +80,11 @@ public class BoardHandler {
       return;
     }
     
-    System.out.printf("번호: %d\n", board.num);
-    System.out.printf("내용: %s\n", board.text);
-    System.out.printf("스크랩 수: %d\n", board.scrap);
-    System.out.printf("등록일: %s\n", board.date);
-    System.out.printf("조회수: %d\n", board.viewCount);
+    System.out.printf("번호: %d\n", board.getNum());
+    System.out.printf("내용: %s\n", board.getText());
+    System.out.printf("스크랩 수: %d\n", board.getScrap());
+    System.out.printf("등록일: %s\n", board.getDate());
+    System.out.printf("조회수: %d\n", board.getViewCount());
     System.out.println();
   }
 }

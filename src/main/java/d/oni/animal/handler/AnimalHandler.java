@@ -21,24 +21,24 @@ public class AnimalHandler {
     Animal animal = new Animal();
 
     System.out.println("번호: ");  
-    animal.no=input.nextInt();
+    animal.setNo(input.nextInt());
     input.nextLine();
 
     System.out.println("이름: ");  
-    animal.name=input.nextLine();
+    animal.setName(input.nextLine());
 
     System.out.println("설명: ");  
-    animal.text=input.nextLine();
+    animal.setText(input.nextLine());
 
     System.out.println("1.유기동물 입양  2.유기동물 보호  3.반려동물 찾기 : ");  
-    animal.choose=input.nextInt();
+    animal.setChoose(input.nextInt());
     input.nextLine();
 
     System.out.println("동물등록번호여부(Y/n): ");  
-    animal.num=input.nextLine();
+    animal.setNum(input.nextLine());
 
-    animal.date = new Date(System.currentTimeMillis());
-    animal.viewCount = 0;
+    animal.setDate(new Date(System.currentTimeMillis()));
+    animal.setViewCount(0);
 
     this.animals[this.animal_count++]=animal;
 
@@ -48,7 +48,7 @@ public class AnimalHandler {
     for (int i = 0; i < this.animal_count; i++) {
       Animal a=this.animals[i];
       System.out.printf("%d, %s, %s, %d, %s, %s, %d\n", 
-          a.no, a.name, a.text, a.choose, a.num, a.date, a.viewCount);
+          a.getNo(), a.getName(), a.getText(), a.getChoose(), a.getNum(), a.getDate(), a.getViewCount());
     }
   }
 

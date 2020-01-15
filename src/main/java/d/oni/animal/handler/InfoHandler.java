@@ -6,18 +6,19 @@ import d.oni.animal.domain.Infomation;
 
 public class InfoHandler {
 
-  Infomation[] infomations = new Infomation[Info_SIZE];
-  int Info_count=0;
+  InfoList infoList;
+  Scanner input;
 
-   Scanner input;
-  static final int Info_SIZE=100;
-  
-  
   public InfoHandler(Scanner input) {
     this.input=input;
-    this.infomations = new Infomation[Info_SIZE];
+    this.infoList = new InfoList();
   }
   
+  public InfoHandler(Scanner input, int capacity) {
+    this.input = input;
+    this.infoList = new InfoList(capacity);
+  }
+
 
   public void addInfo() {
 
@@ -49,21 +50,39 @@ public class InfoHandler {
     System.out.println("가입일 : ");
     info.setRegisteredDate(input.nextLine());
 
-    info.setDate(new Date(System.currentTimeMillis()));
-
-    info.setViewCount(0);
-
-    this.infomations[this.Info_count++]=info;
+    this.infoList.add(info);
+    
+    System.out.println("저장하였습니다.");
 
   }
 
   public void listInfo() {
-    for(int i=0; i<this.Info_count;i++) { 
-      Infomation in = this.infomations[i];
-      System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s,%s,%d\n",
-          in.getNo(), in.getName(), in.getNum(), in.getMail(), in.getAdd(), in.getPhoto(), in.getPhone(), in.getRegisteredDate(), in.getDate(), in.getViewCount());
+    Infomation[] infom = this.infoList.toArray();
+    for(Infomation i : infom) { 
+      System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s\n",
+          i.getNo(), i.getName(), i.getNum(), i.getMail(), i.getAdd(), i.getPhoto(), i.getPhone(), i.getRegisteredDate());
+    }
+  }
+  public void detailInfo() {
+  System.out.print("게시물 번호? ");
+  int num = input.nextInt();
+  input.nextLine(); // 숫자 뒤의 남은 공백 제거
+  
+  Infomation infomation = this.infoList.get(num);
+
+  
+  if (infomation == null) {
+    System.out.println("게시물 번호가 유효하지 않습니다.");
+    return;
     }
 
-
-  }
+  System.out.printf("번호: %d\n", infomation.getNo());
+  System.out.printf("이름: %s\n", infomation.getName());
+  System.out.printf("동물등록번호: %d\n", infomation.getNum());
+  System.out.printf("이메일: %s\n", infomation.getMail());
+  System.out.printf("주소: %s\n", infomation.getAdd());
+  System.out.printf("사진: %s\n", infomation.getPhoto());
+  System.out.printf("전화번호: %s\n", infomation.getPhone());
+  System.out.printf("가입일: %s\n", infomation.getRegisteredDate());
+}
 }

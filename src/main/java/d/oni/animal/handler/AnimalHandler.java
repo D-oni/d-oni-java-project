@@ -2,16 +2,15 @@ package d.oni.animal.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import d.oni.animal.domain.Animal;
-import d.oni.animal.domain.Board;
 
 public class AnimalHandler {
   
-  AnimalList animalList ;
+  ArrayList animalList ;
   Scanner input;
 
   public AnimalHandler(Scanner input) {
     this.input = input;
-    this.animalList = new AnimalList();
+    this.animalList = new ArrayList();
   }
 
   public void addAnimal() {
@@ -44,14 +43,14 @@ public class AnimalHandler {
 
   } 
   public void detailAnimal() {
-    System.out.print("게시물 번호? ");
-    int num = input.nextInt();
+    System.out.print("게시물 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    Animal animal = this.animalList.get(num);
+    Animal animal = (Animal)this.animalList.get(index);
     
     if (animal == null) {
-      System.out.println("게시물 번호가 유효하지 않습니다.");
+      System.out.println("게시물 인덱스가 유효하지 않습니다.");
       return;
       }
 
@@ -64,8 +63,9 @@ public class AnimalHandler {
     System.out.printf("조회수: %d\n", animal.getViewCount());
   }
   public void listAnimal() {
-      Animal[] animals =this.animalList.toArray();
-      for(Animal a : animals) {
+      Object[] arr =this.animalList.toArray();
+      for(Object obj : arr) {
+        Animal a = (Animal)obj;
       System.out.printf("%d, %s, %s, %d, %s, %s, %d\n", 
           a.getNo(), a.getName(), a.getText(), a.getChoose(), a.getNum(), a.getDate(), a.getViewCount());
     }

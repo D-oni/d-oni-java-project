@@ -1,22 +1,21 @@
 package d.oni.animal.handler;
 
-import java.sql.Date;
 import java.util.Scanner;
 import d.oni.animal.domain.Infomation;
 
 public class InfoHandler {
 
-  InfoList infoList;
+  ArrayList infoList;
   Scanner input;
 
   public InfoHandler(Scanner input) {
     this.input=input;
-    this.infoList = new InfoList();
+    this.infoList = new ArrayList();
   }
   
   public InfoHandler(Scanner input, int capacity) {
     this.input = input;
-    this.infoList = new InfoList(capacity);
+    this.infoList = new ArrayList(capacity);
   }
 
 
@@ -57,18 +56,19 @@ public class InfoHandler {
   }
 
   public void listInfo() {
-    Infomation[] infom = this.infoList.toArray();
-    for(Infomation i : infom) { 
+    Object[] arr = this.infoList.toArray();
+    for(Object obj : arr) { 
+      Infomation i = (Infomation)obj;
       System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s\n",
           i.getNo(), i.getName(), i.getNum(), i.getMail(), i.getAdd(), i.getPhoto(), i.getPhone(), i.getRegisteredDate());
     }
   }
   public void detailInfo() {
   System.out.print("게시물 번호? ");
-  int num = input.nextInt();
+  int index = input.nextInt();
   input.nextLine(); // 숫자 뒤의 남은 공백 제거
   
-  Infomation infomation = this.infoList.get(num);
+  Infomation infomation = (Infomation)this.infoList.get(index);
 
   
   if (infomation == null) {

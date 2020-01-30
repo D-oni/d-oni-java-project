@@ -2,6 +2,7 @@ package d.oni.animal.handler;
 
 import java.util.Scanner;
 import d.oni.animal.domain.Infomation;
+import d.oni.animal.util.ArrayList;
 
 public class InfoHandler {
 

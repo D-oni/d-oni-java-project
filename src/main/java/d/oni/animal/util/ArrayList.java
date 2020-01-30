@@ -1,8 +1,8 @@
-package d.oni.animal.handler;
+package d.oni.animal.util;
 
 import java.util.Arrays;
 
-public class ArrayList {
+public class ArrayList<E> {
   
   static final int DEFAULT_CAPACITY = 100;
 
@@ -18,33 +18,40 @@ public class ArrayList {
       this.list = new Object[DEFAULT_CAPACITY];
     else 
       this.list = new Object[capacity];
+  }
 
+
+  @SuppressWarnings("unchecked")
+  public E[] toArray(E[] arr) {
+    
+    if (arr.length < this.size) {
+      return (E[]) Arrays.copyOf(this.list, this.size, arr.getClass());
+    }
+    System.arraycopy(this.list, 0, arr, 0, this.size);
+    return arr;
   }
   
-  public Object[] toArray() {
-
-    return Arrays.copyOf(this.list, this.size);
-  }
-  
-  public void add(Object obj) {
+  public void add(E obj) {
     if (this.size == this.list.length) {
-      // 현재 배열에 게시글 객체가 꽉 찼으면, 배열을 늘린다.
       int oldCapacity = this.list.length;
       int newCapacity = oldCapacity + (oldCapacity >> 1);
-
       this.list = Arrays.copyOf(this.list, newCapacity);
     }
     this.list[this.size++] = obj;
   }
   
-  public Object get(int idx) {
-  
-      if (idx >= 0 && idx < this.size) {
-        return this.list[idx];
-      }else {
-        return null;
-        
+
+  @SuppressWarnings("unchecked")
+  public E get(int idx) {
+    if (idx >= 0 && idx < this.size) {
+      return (E)this.list[idx];
+    } else {
+      return null;
     }
+  }
+  
+  public int size() {
+    return this.size;
   }
 }
 

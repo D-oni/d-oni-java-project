@@ -2,26 +2,34 @@ package d.oni.animal.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import d.oni.animal.domain.Board;
+import d.oni.animal.util.ArrayList;
+
 
 public class BoardHandler {
-
-  ArrayList boardList;
+  
+  ArrayList<Board> boardList;
+  
   Scanner input;
-
+  
+  
   public BoardHandler(Scanner input) {
-    this.input=input;
-    this.boardList=new ArrayList();
-
+    this.input = input;
+    this.boardList = new ArrayList<>();
   }
+  
   public BoardHandler(Scanner input, int capacity) {
     this.input = input;
-    this.boardList = new ArrayList(capacity);
+    this.boardList = new ArrayList<>(capacity);
   }
-
+  
   public void listBoard() {
-    Object[] arr = this.boardList.toArray();
-    for (Object obj : arr) {
-      Board b =(Board)obj;
+    // BoardList의 보관된 값을 받을 배열을 준비한다. 
+    Board[] arr = new Board[this.boardList.size()];
+
+    // toArray()에게 빈 배열을 넘겨서 복사 받는다.
+    this.boardList.toArray(arr);
+     
+    for (Board b : arr) {
       System.out.printf("%d, %s, %d, %s, %d\n",
           b.getNum(), b.getText(), b.getScrap(), b.getDate(), b.getViewCount());
     }
@@ -56,7 +64,7 @@ public class BoardHandler {
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    Board board = (Board)this.boardList.get(index);
+    Board board = this.boardList.get(index);
     
     if (board == null) {
       System.out.println("게시물 인덱스 유효하지 않습니다.");

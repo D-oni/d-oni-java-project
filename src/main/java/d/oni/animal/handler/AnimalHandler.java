@@ -2,15 +2,16 @@ package d.oni.animal.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import d.oni.animal.domain.Animal;
+import d.oni.animal.util.ArrayList;
 
 public class AnimalHandler {
   
-  ArrayList animalList ;
+  ArrayList<Animal> animalList ;
   Scanner input;
 
   public AnimalHandler(Scanner input) {
     this.input = input;
-    this.animalList = new ArrayList();
+    this.animalList = new ArrayList<>();
   }
 
   public void addAnimal() {
@@ -47,7 +48,7 @@ public class AnimalHandler {
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    Animal animal = (Animal)this.animalList.get(index);
+    Animal animal = this.animalList.get(index);
     
     if (animal == null) {
       System.out.println("게시물 인덱스가 유효하지 않습니다.");
@@ -63,9 +64,11 @@ public class AnimalHandler {
     System.out.printf("조회수: %d\n", animal.getViewCount());
   }
   public void listAnimal() {
-      Object[] arr =this.animalList.toArray();
-      for(Object obj : arr) {
-        Animal a = (Animal)obj;
+      Animal[] arr =new Animal[this.animalList.size()];
+      
+      this.animalList.toArray(arr);
+
+      for(Animal a : arr) {
       System.out.printf("%d, %s, %s, %d, %s, %s, %d\n", 
           a.getNo(), a.getName(), a.getText(), a.getChoose(), a.getNum(), a.getDate(), a.getViewCount());
     }

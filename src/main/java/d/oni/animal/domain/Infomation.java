@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Infomation {
   private int no;
   private String name;
-  private int num;
+  private String num;
   private String mail;
   private  String add;
   private String photo;
@@ -25,10 +25,10 @@ public class Infomation {
   public void setName(String name) {
     this.name = name;
   }
-  public int getNum() {
+  public String getNum() {
     return num;
   }
-  public void setNum(int num) {
+  public void setNum(String num) {
     this.num = num;
   }
   public String getMail() {
@@ -73,7 +73,7 @@ public class Infomation {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-  
+
 }
 
 

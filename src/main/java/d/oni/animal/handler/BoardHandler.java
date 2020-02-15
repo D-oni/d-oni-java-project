@@ -45,7 +45,7 @@ public class BoardHandler {
     board.setText(input.nextLine());
 
     System.out.println("스크랩 수: ");
-    board.setScrap(input.nextInt());
+    board.setScrap(input.nextLine());
 
     input.nextLine();
 
@@ -60,19 +60,20 @@ public class BoardHandler {
 
   public void detailBoard() {
     System.out.print("번호? ");
-    int index = input.nextInt();
+    int no = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-    Board board = this.boardList.get(index);
+    int index = indexOfBoard(no);
 
-    if (board == null) {
+    if (index == -1) {
       System.out.println("해당 게시글을 찾을 수 없습니다.");
       return;
       }
+    Board board = this.boardList.get(index);
 
     System.out.printf("번호: %d\n", board.getNum());
     System.out.printf("내용: %s\n", board.getText());
-    System.out.printf("스크랩 수: %d\n", board.getScrap());
+    System.out.printf("스크랩 수: %s\n", board.getScrap());
     System.out.printf("등록일: %s\n", board.getDate());
     System.out.printf("조회수: %d\n", board.getViewCount());
   }
@@ -90,24 +91,44 @@ public class BoardHandler {
     }
 
     Board oldBoard = this.boardList.get(index);
+    
+    boolean changed = false;
+    String inputStr = null;
+    Board newBoard = new Board();
+    
+    newBoard.setNum(oldBoard.getNum());
+    
     System.out.printf("내용(%s)? ", oldBoard.getText());
-    String text = input.nextLine();
-
-    if (text.length() == 0) {
-      System.out.println("게시글 변경을 취소했습니다.");
-      return;
+    inputStr = input.nextLine();
+    if(inputStr.length()==0) {
+    	newBoard.setText(oldBoard.getText());
+    }else {
+    	newBoard.setText(inputStr);
+    	changed = true;
+    }
+    System.out.printf("스크랩 (%s)? ", oldBoard.getScrap());
+    inputStr = input.nextLine();
+    if(inputStr.length() == 0) {
+    	newBoard.setScrap(oldBoard.getScrap());
+    }else {
+    	newBoard.setScrap(inputStr);
+    	changed = true;
+    }
+    System.out.printf("등록일(%s)? ", oldBoard.getDate());
+    inputStr = input.nextLine();
+    if(inputStr.length() == 0) {
+    	newBoard.setDate(oldBoard.getDate());
+    }else {
+    	newBoard.setDate(Date.valueOf(inputStr));
+    	changed = true;
     }
 
-    Board newBoard = new Board();
-    newBoard.setNum(oldBoard.getNum());
-    newBoard.setText(oldBoard.getText());
-    newBoard.setScrap(oldBoard.getScrap());
-    newBoard.setDate(new Date(System.currentTimeMillis()));
-    newBoard.setViewCount(oldBoard.getViewCount());
-
-    this.boardList.set(index, newBoard);
-
+    if (changed) {
+     this.boardList.set(index, newBoard);
     System.out.println("게시글을 변경했습니다.");
+  }else {
+System.out.println("게시글 변경을 취소하였습니다.");  
+  	}
   }
 
   public void deleteBoard() {

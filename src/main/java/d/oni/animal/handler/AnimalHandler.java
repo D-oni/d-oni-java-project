@@ -102,9 +102,7 @@ public class AnimalHandler {
       newAnimal.setName(inputStr);
       changed = true;
     }
-
-
-    System.out.print("설명? ");
+    System.out.printf("설명(%s)? ", oldAnimal.getText());
     inputStr = input.nextLine();
     if (inputStr.length() == 0) {
       newAnimal.setText(oldAnimal.getText());
@@ -130,6 +128,7 @@ public class AnimalHandler {
       newAnimal.setNum(inputStr);
       changed = true;
     }
+    
     if (changed) {
       this.animalList.set(index, newAnimal);
       System.out.println("정보를 변경했습니다.");

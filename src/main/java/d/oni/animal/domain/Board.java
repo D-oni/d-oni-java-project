@@ -7,7 +7,7 @@ public class Board {
   private String text;
   private Date date;
   private int viewCount;
-  private int scrap;
+  private String scrap;
   public int getNum() {
     return num;
   }
@@ -30,13 +30,13 @@ public class Board {
     return viewCount;
   }
   public void setViewCount(int viewCount) {
-    this.viewCount = viewCount;
+    this.viewCount = viewCount ;
   }
-  public int getScrap() {
+  public String getScrap() {
     return scrap;
   }
-  public void setScrap(int scrap) {
-    this.scrap = scrap;
+  public void setScrap(String inputStr) {
+    this.scrap = inputStr;
   }
 }
 

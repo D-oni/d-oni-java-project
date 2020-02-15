@@ -6,6 +6,7 @@
 
 ## 실습 소스 및 결과
 
+<<<<<<< HEAD
 -src/main/java/d/oni/animal/util/ArrayList.java 변경
 -src/main/java/d/oni/animal/handler/AnimalHandler.java 변경
 -src/main/java/d/oni/animal/handler/InfoHandler.java 변경
@@ -14,6 +15,16 @@
 -src/main/java/d/oni/animal/domain/Infomation.java 변경
 -src/main/java/d/oni/animal/domain/Board.java 변경
 -src/main/java/d/oni/animal/App.java 변경
+=======
+- src/main/java/d/oni/animal/util/ArrayList.java 변경
+- src/main/java/d/oni/animal/handler/AnimalHandler.java 변경
+- src/main/java/d/oni/animal/handler/InfoHandler.java 변경
+- src/main/java/d/oni/animal/handler/BoardHandler.java 변경
+- src/main/java/d/oni/animal/domain/Animal.java 변경
+- src/main/java/d/oni/animal/domain/Infomation.java 변경
+- src/main/java/d/oni/animal/domain/Board.java 변경
+- src/main/java/d/oni/animal/App.java 변경
+>>>>>>> 7d01a47104eb6889586d462a40c3fc621ec6b841
 
 ## 실습
 

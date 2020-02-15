@@ -79,16 +79,17 @@ public class BoardHandler {
 
   public void updateBoard() {
     System.out.print("번호? ");
-    int index = input.nextInt();
+    int no = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-    Board oldBoard = this.boardList.get(index);
-
-    if (oldBoard == null) {
+    int index = indexOfBoard(no);
+    
+    if (index == -1) {
       System.out.println("해당 게시글을 찾을 수 없습니다.");
       return;
     }
 
+    Board oldBoard = this.boardList.get(index);
     System.out.printf("내용(%s)? ", oldBoard.getText());
     String text = input.nextLine();
 
@@ -111,12 +112,12 @@ public class BoardHandler {
 
   public void deleteBoard() {
     System.out.print("번호? ");
-    int index = input.nextInt();
+    int no = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-    Board board = this.boardList.get(index);
+    int index = indexOfBoard(no);
 
-    if (board == null) {
+    if (index == -1) {
       System.out.println("해당 게시글을 찾을 수 없습니다.");
       return;
     }
@@ -125,5 +126,13 @@ public class BoardHandler {
 
     System.out.println("게시물을 삭제했습니다.");
   }
-
+  
+  private int indexOfBoard(int no) {
+	  for(int i = 0; i< this.boardList.size();i++) {
+		  if(this.boardList.get(i).getNum()==no) {
+			  return i;
+		  }
+	  }
+	  return -1;
+  }
 }

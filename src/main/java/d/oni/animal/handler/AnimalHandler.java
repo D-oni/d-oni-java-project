@@ -54,15 +54,17 @@ public class AnimalHandler {
 
   public void detailAnimal() {
     System.out.print("번호? ");
-    int index = input.nextInt();
+    int no = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-    Animal animal =  this.animalList.get(index);
+    int index = indexOfAnimal(no);
 
-    if (animal == null) {
-      System.out.println("해당 동물번호를 찾을 수 없습니다".);
+    if (index == -1) {
+      System.out.println("해당 동물번호를 찾을 수 없습니다.");
       return;
       }
+    
+    Animal animal =  this.animalList.get(index);
 
     System.out.printf("번호: %d\n", animal.getNo());
     System.out.printf("이름: %s\n", animal.getName());
@@ -74,15 +76,18 @@ public class AnimalHandler {
   }
   public void updateAnimal() {
     System.out.println("번호?");
-    int index =input.nextInt();
+    int no =input.nextInt();
     input.nextLine();
 
-    Animal oldAnimal = this.animalList.get(index);
-
-    if(oldAnimal == null) {
+    int index = indexOfAnimal(no);
+    
+    if(index == -1) {
       System.out.println("해당 번호를 찾을 수 없습니다.");
       return;
     }
+    
+    Animal oldAnimal = this.animalList.get(index);
+    
     boolean changed = false;
     String inputStr = null;
     Animal newAnimal = new Animal();
@@ -134,12 +139,12 @@ public class AnimalHandler {
    }
     public void deleteAnimal() {
       System.out.print("번호? ");
-      int index = input.nextInt();
+      int no = input.nextInt();
       input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-      Animal animal = this.animalList.get(index);
+      int index = indexOfAnimal(no);
 
-      if (animal == null) {
+      if (index == -1) {
         System.out.println("해당 번호를 찾을 수 없습니다.");
         return;
       }
@@ -147,6 +152,14 @@ public class AnimalHandler {
       this.animalList.remove(index);
 
       System.out.println("정보를 삭제했습니다.");
+    }
+    private int indexOfAnimal(int no) {
+    for(int i =0; i<this.animalList.size(); i++) {
+    	if(this.animalList.get(i).getNo()==no) {
+    		return i;
+    	}
+    }
+    return -1;
     }
 
 

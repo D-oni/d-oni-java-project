@@ -6,14 +6,14 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/util/ArrayList.java 변경
-- src/main/java/com/eomcs/lms/handler/AnimalHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/InfoHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/BoardHandler.java 변경
-- src/main/java/com/eomcs/lms/domain/Animal.java 변경
-- src/main/java/com/eomcs/lms/domain/Infomation.java 변경
-- src/main/java/com/eomcs/lms/domain/Board.java 변경
-- src/main/java/com/eomcs/lms/App.java 변경
+- src/main/java/d/oni/animal/util/ArrayList.java 변경
+- src/main/java/d/oni/animal/handler/AnimalHandler.java 변경
+- src/main/java/d/oni/animal/handler/InfoHandler.java 변경
+- src/main/java/d/oni/animal/handler/BoardHandler.java 변경
+- src/main/java/d/oni/animal/domain/Animal.java 변경
+- src/main/java/d/oni/animal/domain/Infomation.java 변경
+- src/main/java/d/oni/animal/domain/Board.java 변경
+- src/main/java/d/oni/animal/App.java 변경
 
 ## 실습
 

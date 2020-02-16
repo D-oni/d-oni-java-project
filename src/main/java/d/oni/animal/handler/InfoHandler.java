@@ -1,21 +1,23 @@
 package d.oni.animal.handler;
 
 import java.util.Scanner;
+
 import d.oni.animal.domain.Infomation;
 import d.oni.animal.util.ArrayList;
+import d.oni.animal.util.Prompt;
 
 public class InfoHandler {
 
 	ArrayList<Infomation> infoList;
-	Scanner input;
+	Prompt prompt;
 
-	public InfoHandler(Scanner input) {
-		this.input=input;
+	public InfoHandler(Prompt prompt) {
+		this.prompt=prompt;
 		this.infoList = new ArrayList();
 	}
 
-	public InfoHandler(Scanner input, int capacity) {
-		this.input = input;
+	public InfoHandler(Prompt prompt, int capacity) {
+		this.prompt=prompt;
 		this.infoList = new ArrayList(capacity);
 	}
 
@@ -24,30 +26,14 @@ public class InfoHandler {
 
 		Infomation info = new Infomation();
 
-		System.out.println("번호: ");
-		info.setNo (input.nextInt());
-		input.nextLine();
-
-		System.out.println("이름: ");
-		info.setName(input.nextLine());
-
-		System.out.println("동물등록번호 : ");
-		info.setNum(input.nextLine());
-
-		System.out.println("이메일: ");
-		info.setMail(input.nextLine());
-
-		System.out.println("주소 : ");
-		info.setAdd(input.nextLine());
-
-		System.out.println("사진 : ");
-		info.setPhoto(input.nextLine());
-
-		System.out.println("전화번호 : ");
-		info.setPhone(input.nextLine());
-
-		System.out.println("가입일 : ");
-		info.setRegisteredDate(input.nextLine());
+		info.setNo (prompt.inputInt("번호: "));
+		info.setName(prompt.inputString("이름: "));
+		info.setNum(prompt.inputInt("동물등록번호 : "));
+		info.setMail(prompt.inputString("이메일: "));
+		info.setAdd(prompt.inputString("주소 : "));
+		info.setPhoto(prompt.inputString("사진 : "));
+		info.setPhone(prompt.inputString("전화번호 : "));
+		info.setRegisteredDate(prompt.inputString("가입일 : "));
 
 		this.infoList.add(info);
 
@@ -64,113 +50,67 @@ public class InfoHandler {
 		}
 	}
 	public void detailInfo() {
-		System.out.print("번호? ");
-		int index = input.nextInt();
-		input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-		Infomation infomation = this.infoList.get(index);
+		int index = indexOfInfomation(prompt.inputInt("번호? "));
 
-
-		if (infomation == null) {
+		if (index == -1) {
 			System.out.println("회원 번호가 유효하지 않습니다.");
 			return;
 		}
 
-		System.out.printf("번호: %d\n", infomation.getNo());
-		System.out.printf("이름: %s\n", infomation.getName());
-		System.out.printf("동물등록번호: %s\n", infomation.getNum());
-		System.out.printf("이메일: %s\n", infomation.getMail());
-		System.out.printf("주소: %s\n", infomation.getAdd());
-		System.out.printf("사진: %s\n", infomation.getPhoto());
-		System.out.printf("전화번호: %s\n", infomation.getPhone());
-		System.out.printf("가입일: %s\n", infomation.getRegisteredDate());
+		Infomation info = this.infoList.get(index);
+
+		System.out.printf("번호: %d\n", info.getNo());
+		System.out.printf("이름: %s\n", info.getName());
+		System.out.printf("동물등록번호: %s\n", info.getNum());
+		System.out.printf("이메일: %s\n", info.getMail());
+		System.out.printf("주소: %s\n", info.getAdd());
+		System.out.printf("사진: %s\n", info.getPhoto());
+		System.out.printf("전화번호: %s\n", info.getPhone());
+		System.out.printf("가입일: %s\n", info.getRegisteredDate());
 	}
 	public void updateInfo() {
-		System.out.print("번호? ");
-		int no = input.nextInt();
-		input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-		int index = indexOfInfomation(no);
+		int index = indexOfInfomation(prompt.inputInt("번호? "));
 
 		if (index == -1) {
 			System.out.println("회원 인덱스가 유효하지 않습니다.");
 			return;
 		}
 		Infomation oldInfo= this.infoList.get(index);
-
-		boolean changed = false;
-		String inputStr = null;
 		Infomation newInfo = new Infomation();
 
+
 		newInfo.setNo(oldInfo.getNo());
+		newInfo.setName(prompt.inputString(
+				String.format("이름(%s)? ", oldInfo.getName(),oldInfo.getName())));
 
-		System.out.printf("이름(%s)? ", oldInfo.getName());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setName(oldInfo.getName());
-		} else {
-			newInfo.setName(inputStr);
-			changed = true;
-		}
-		System.out.printf("동물등록번호(%s)? ", newInfo.getNum());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setNum(oldInfo.getNum());
-		} else {
-			newInfo.setNum(inputStr);
-			changed = true;
-		}
+		newInfo.setNum(prompt.inputInt(
+				String.format("동물등록번호(%s)? ",oldInfo.getNum(),oldInfo.getNum())) );
 
-		System.out.printf("이메일(%s)? ", oldInfo.getMail());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setMail(oldInfo.getMail());
-		} else {
-			newInfo.setMail(inputStr);
-			changed = true;
-		}
+		newInfo.setMail(prompt.inputString(
+				String.format("이메일(%s)? ",oldInfo.getMail(),oldInfo.getMail())) );
 
-		System.out.printf("주소(%s)? ", oldInfo.getAdd());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setAdd(oldInfo.getAdd());
-		} else {
-			newInfo.setAdd(inputStr);
-			changed = true;
-		}
+		newInfo.setAdd(prompt.inputString(
+				String.format("주소(%s)? ",oldInfo.getAdd(),oldInfo.getAdd())) );
 
-		System.out.printf("사진(%s)? ", oldInfo.getPhoto());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setPhoto(oldInfo.getPhoto());
-		} else {
-			newInfo.setPhoto(inputStr);
-			changed = true;
-		}
+		newInfo.setPhoto(prompt.inputString(
+				String.format("사진(%s)? ",oldInfo.getPhoto(),oldInfo.getPhoto())) );
 
-		System.out.printf("전화(%s)? ", oldInfo.getPhone());
-		inputStr = input.nextLine();
-		if (inputStr.length() == 0) {
-			newInfo.setPhone(oldInfo.getPhone());
-		} else {
-			newInfo.setPhone(inputStr);
-			changed = true;
-		}
+		newInfo.setPhone(prompt.inputString(
+				String.format("전화(%s)? ",oldInfo.getPhone(),oldInfo.getPhone())) );
 
-		if (changed) {
+		if (oldInfo.equals(newInfo)) {
 			this.infoList.set(index, newInfo);
-			System.out.println("회원을 변경했습니다.");
-		} else {
 			System.out.println("회원 변경을 취소하였습니다.");
 		}
+		this.infoList.set(index, newInfo);
+		System.out.println("회원을 변경했습니다.");
 	}
 
 	public void deleteInfo() {
-		System.out.print("회원 인덱스? ");
-		int no = input.nextInt();
-		input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-		int index = indexOfInfomation(no);
+		int index = indexOfInfomation(prompt.inputInt("번호? "));
 
 		if (index == -1) {
 			System.out.println("회원 인덱스가 유효하지 않습니다.");

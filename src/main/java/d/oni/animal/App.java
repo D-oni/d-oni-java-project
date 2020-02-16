@@ -1,20 +1,22 @@
 package d.oni.animal;
 
 import java.util.Scanner;
+
 import d.oni.animal.handler.AnimalHandler;
 import d.oni.animal.handler.BoardHandler;
 import d.oni.animal.handler.InfoHandler;
+import d.oni.animal.util.Prompt;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
+	  Prompt prompt = new Prompt(keyboard);
 
-    // BoardHandler의 메서드가 사용할 메모리만 게시판 마다 따로 생성한다.
-    AnimalHandler animalHandler = new AnimalHandler(keyboard);
-    BoardHandler boardHandler = new BoardHandler(keyboard, 200);
-    InfoHandler infoHandler = new InfoHandler(keyboard, 1000);
+    AnimalHandler animalHandler = new AnimalHandler(prompt);
+    BoardHandler boardHandler = new BoardHandler(prompt);
+    InfoHandler infoHandler = new InfoHandler(prompt);
 
 
     String command;

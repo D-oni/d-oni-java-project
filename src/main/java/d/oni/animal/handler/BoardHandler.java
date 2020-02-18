@@ -2,17 +2,17 @@ package d.oni.animal.handler;
 import java.sql.Date;
 
 import d.oni.animal.domain.Board;
-import d.oni.animal.util.ArrayList;
+import d.oni.animal.util.LinkedList;
 import d.oni.animal.util.Prompt;
 
 public class BoardHandler {
 
-	ArrayList<Board> boardList;
+	LinkedList<Board> boardList;
 	Prompt prompt;
 
 	public BoardHandler(Prompt prompt) {
 		this.prompt = prompt;
-		this.boardList = new ArrayList<>();
+		this.boardList = new LinkedList<>();
 	}
 
 	public void listBoard() {
@@ -81,7 +81,6 @@ public class BoardHandler {
 
 
 		if (newBoard.equals(oldBoard)) {
-			this.boardList.set(index, newBoard);
 			System.out.println("게시글 변경을 취소하였습니다.");  
 			return;
 		}

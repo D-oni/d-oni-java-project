@@ -1,24 +1,17 @@
 package d.oni.animal.handler;
 
-import java.util.Scanner;
-
 import d.oni.animal.domain.Infomation;
-import d.oni.animal.util.ArrayList;
+import d.oni.animal.util.LinkedList;
 import d.oni.animal.util.Prompt;
 
 public class InfoHandler {
 
-	ArrayList<Infomation> infoList;
+	LinkedList<Infomation> infoList;
 	Prompt prompt;
 
 	public InfoHandler(Prompt prompt) {
 		this.prompt=prompt;
-		this.infoList = new ArrayList();
-	}
-
-	public InfoHandler(Prompt prompt, int capacity) {
-		this.prompt=prompt;
-		this.infoList = new ArrayList(capacity);
+		this.infoList = new LinkedList<>();
 	}
 
 

@@ -84,13 +84,23 @@ public class LinkedList {
     Node cursor = first;
     for(int i = 0 ; i < index - 1 ; i++) {
       cursor = cursor.next;
-
-      Object oldValue = cursor.value;
-      cursor.value = value;
-
-      return oldValue;
     }
+    Object oldValue = cursor.value;
+    cursor.value = value;
 
+    return oldValue;
+
+
+  }
+  public Object[] toArray() {
+    Object[] arr = new Object[size];
+
+    Node cursor = first;
+    for(int i = 0; i < size; i++) {
+      arr[i] = cursor.value;
+      cursor = cursor.next;
+    }
+    return arr;
   }
 
   static class Node {

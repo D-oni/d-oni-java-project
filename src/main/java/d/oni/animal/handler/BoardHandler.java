@@ -33,7 +33,7 @@ public class BoardHandler {
 
 		board.setNum(prompt.inputInt("번호: "));
 		board.setText(prompt.inputString("내용: "));
-		board.setScrap(prompt.inputString("스크랩 수: "));
+		board.setScrap(prompt.inputInt("스크랩 수: "));
 		board.setDate(prompt.inputDate("등록일? "));
 		board.setViewCount(prompt.inputInt("조회수? "));
 

@@ -1,4 +1,4 @@
-package com.eomcs.util;
+package d.oni.animal.util;
 
 import java.lang.reflect.Array;
 

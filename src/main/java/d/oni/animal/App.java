@@ -6,11 +6,13 @@ import d.oni.animal.handler.AnimalHandler;
 import d.oni.animal.handler.BoardHandler;
 import d.oni.animal.handler.InfoHandler;
 import d.oni.animal.util.Prompt;
+import d.oni.animal.util.Stack;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
+  static Stack<String> commandStack = new Stack<>();
   public static void main(String[] args) {
 	  Prompt prompt = new Prompt(keyboard);
 
@@ -25,6 +27,8 @@ public class App {
       System.out.print("\n명령> ");
       command = keyboard.nextLine();
 
+      commandStack.push(command);
+      
       switch (command) {
         case "/animal/add":
           animalHandler.addAnimal();
@@ -71,6 +75,9 @@ public class App {
         case "/info/delete":
           infoHandler.deleteInfo();
           break;
+        case "history":
+        	printCommandHistory();
+        	break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -83,7 +90,23 @@ public class App {
 
     keyboard.close();
   }
-}
+private static void printCommandHistory() {
+	Stack<String> historyStack = commandStack.clone();
+	int count = 0;
+	while(!historyStack.empty()) {
+		System.out.println(historyStack.pop());
+		count++;
+	      
+	      if ((count % 5) == 0) {
+	        System.out.print(":");
+	        String str = keyboard.nextLine();
+	        if (str.equalsIgnoreCase("q")) {
+	          break;
+	        }
+	      }
+	    }
+	  }
+	}
 
 
 

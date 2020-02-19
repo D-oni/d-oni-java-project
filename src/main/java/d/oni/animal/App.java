@@ -1,11 +1,11 @@
 package d.oni.animal;
 
 import java.util.Scanner;
-
 import d.oni.animal.handler.AnimalHandler;
 import d.oni.animal.handler.BoardHandler;
 import d.oni.animal.handler.InfoHandler;
 import d.oni.animal.util.Prompt;
+import d.oni.animal.util.Queue;
 import d.oni.animal.util.Stack;
 
 public class App {
@@ -13,8 +13,9 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
 
   static Stack<String> commandStack = new Stack<>();
+  static Queue<String> commandQueue = new Queue<>();
   public static void main(String[] args) {
-	  Prompt prompt = new Prompt(keyboard);
+    Prompt prompt = new Prompt(keyboard);
 
     AnimalHandler animalHandler = new AnimalHandler(prompt);
     BoardHandler boardHandler = new BoardHandler(prompt);
@@ -28,7 +29,7 @@ public class App {
       command = keyboard.nextLine();
 
       commandStack.push(command);
-      
+
       switch (command) {
         case "/animal/add":
           animalHandler.addAnimal();
@@ -76,8 +77,11 @@ public class App {
           infoHandler.deleteInfo();
           break;
         case "history":
-        	printCommandHistory();
-        	break;
+          printCommandHistory();
+          break;
+        case "history2":
+          printCommandHistory2();
+          break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -90,23 +94,40 @@ public class App {
 
     keyboard.close();
   }
-private static void printCommandHistory() {
-	Stack<String> historyStack = commandStack.clone();
-	int count = 0;
-	while(!historyStack.empty()) {
-		System.out.println(historyStack.pop());
-		count++;
-	      
-	      if ((count % 5) == 0) {
-	        System.out.print(":");
-	        String str = keyboard.nextLine();
-	        if (str.equalsIgnoreCase("q")) {
-	          break;
-	        }
-	      }
-	    }
-	  }
-	}
+  private static void printCommandHistory() {
+    Stack<String> historyStack = commandStack.clone();
+    int count = 0;
+    while(!historyStack.empty()) {
+      System.out.println(historyStack.pop());
+      count++;
+
+      if ((count % 5) == 0) {
+        System.out.print(":");
+        String str = keyboard.nextLine();
+        if (str.equalsIgnoreCase("q")) {
+          break;
+        }
+      }
+    }
+  }
+
+  private static void printCommandHistory2() {
+    Queue<String> historyQueue = commandQueue.clone();
+    int count = 0;
+
+    while (historyQueue.size() > 0) {
+      System.out.println(historyQueue.poll());
+
+      if ((++count % 5) == 0) {
+        System.out.print(":");
+        String str = keyboard.nextLine();
+        if (str.equalsIgnoreCase("q")) {
+          break;
+        }
+      }
+    }
+  }
+}
 
 
 

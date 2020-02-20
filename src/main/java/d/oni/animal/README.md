@@ -1,53 +1,58 @@
-# 22 - 큐 자료구조 구현과 활용
+# 23_1 - 일반화(generalization) 상속 기법을 사용하여 ArrayList와 LinkedList의 공통점 분리하기
 
 ## 학습 목표
 
-- 큐(queue) 자료구조를 구현할 수 있다.
-- 큐의 구동원리를 이해하고 활용할 수 있다.
+- 상속 기법 중 일반화 기법을 수행할 수 있다.
+- 클래스의 공통점을 유지보수 하기 쉽게 분리하기 위해 상속을 이용할 수 있다.
+- 다형적 변수를 이용하여 다양한 서브 타입 객체를 다룰 수 있다.
+- 의존성 주입(DI) 기법을 이용하여 객체를 부품처럼 교체하기 쉽도록 만들 수 있다.
 
+### 주요 개념
+
+- 일반화(Generalization)
+  - 서브 클래스의 공통 분모를 추출하여 수퍼 클래스로 정의하고 상속 관계를 맺는 것.
+- 다형적 변수(Polymorphic Variables)
+  - Handler에서 사용할 목록 관리 객체를 수퍼 클래스의 레퍼런스로 선언하는 것.
+  - 이를 통해 List의 서브 객체로 교체하기 쉽도록 만드는 것.
+- 의존성 주입(DI; Dependency Injection)
+  - Handler가 의존하는 객체를 내부에서 생성하지 않고 생성자를 통해 외부에서 주입 받는 것.
+  - 이를 통해 의존 객체 교체가 쉽도록 만드는 것.
 
 ## 실습 소스 및 결과
 
-- src/main/java/d/oni/util/Queue.java 추가
+- src/main/java/com/eomcs/util/List.java 추가
+- src/main/java/com/eomcs/util/ArrayList.java 변경
+- src/main/java/d/oni/util/LinkedList.java 변경
+- src/main/java/d/oni/animal/handler/AnimalHandler.java 변경
+- src/main/java/d/oni/animal/handler/InfoHandler.java 변경
+- src/main/java/d/oni/animal/handler/BoardHandler.java 변경
 - src/main/java/d/oni/animal/App.java 변경
 
 ## 실습
 
-### 훈련1. 큐 자료구조를 구현하라.
+### 훈련1. 데이터 목록을 다루는 ArrayList와 LinkedList의 공통점을 찾아 별도의 클래스로 분리하라.
 
-- Queue.java
-    - 제네릭을 적용한다.
-    - 객체 복제가 가능하도록 Cloneable 인터페이스 구현.
-
-
-### 훈련2. 사용자가 입력한 명령어를 큐에 보관.
-
+- List.java
+    - ArrayList와 LinkedList의 공통 멤버를(필드와 메서드)를 선언한다.
+    - 서브 클래스에서 반드시 재정의 해야 하는 메서드는 추상 메서드로 구현하지 않고 놓아 둔다. 
+- ArrayList.java
+    - `AbstractList`를 상속 받는다.
+    - 상속 받은 추상 메서드를 구현한다.
+- LinkedList.java
+    - `AbstractList`를 상속 받는다.
+    - 상속 받은 추상 메서드를 구현한다.
+- AnimalHandler.java
+    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
+    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
+    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
+- InfoHandler.java
+    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
+    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
+    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
+- BoardHandler.java
+    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
+    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
+    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
 - App.java
-    - 사용자가 입력한 명령어를 큐에 보관.
-
-
-### 훈련3. 사용자가 입력한 명령을 입력한 순서로 출력하는 `history2` 명령을 추가.
-
-- App.java
-    - 명령어 내역을 출력하는 printCommandHistory2() 정의.
-    - `history2` 명령을 처리하는 분기문 추가.
-
-#### 실행 결과
-
-```
-명령> history2
-history
-/board/detail
-/member/list
-/lesson/add
-/lesson/list
-:  <== 키보드에서 ‘q’가 아닌 다른 문자키를 누른다.
-/board/add
-/member/list
-/member/list
-/board/add
-/board/add
-:q  <== 키보드에서 ‘q’ 키를 누른다.
-명령>
-
-```
+    - XxxHandler가 사용할 의존 객체(AbstractList 객체)를 준비한다.
+    - XxxHandler를 생성할 때 해당 의존 객체를 넘겨준다.

@@ -2,13 +2,13 @@ package d.oni.animal.util;
 
 import java.util.Arrays;
 
-public class ArrayList<E> {
+
+public class ArrayList<E> extends List<E> {
 
   private static final int DEFAULT_CAPACITY = 2;
 
   Object[] elementData;
-  int size;
-
+  
   public ArrayList() {
     this.elementData = new Object[DEFAULT_CAPACITY];
   }

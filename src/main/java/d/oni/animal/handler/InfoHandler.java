@@ -2,16 +2,17 @@ package d.oni.animal.handler;
 
 import d.oni.animal.domain.Infomation;
 import d.oni.animal.util.LinkedList;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class InfoHandler {
 
-	LinkedList<Infomation> infoList;
+	List<Infomation> infoList;
 	Prompt prompt;
 
-	public InfoHandler(Prompt prompt) {
+	public InfoHandler(Prompt prompt,List<Infomation> infolist) {
 		this.prompt=prompt;
-		this.infoList = new LinkedList<>();
+		this.infoList = infolist;
 	}
 
 

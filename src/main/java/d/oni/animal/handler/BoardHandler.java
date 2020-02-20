@@ -2,17 +2,17 @@ package d.oni.animal.handler;
 import java.sql.Date;
 
 import d.oni.animal.domain.Board;
-import d.oni.animal.util.LinkedList;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class BoardHandler {
 
-	LinkedList<Board> boardList;
+	List<Board> boardList;
 	Prompt prompt;
 
-	public BoardHandler(Prompt prompt) {
+	public BoardHandler(Prompt prompt,List<Board> boardlist) {
 		this.prompt = prompt;
-		this.boardList = new LinkedList<>();
+		this.boardList = boardlist;
 	}
 
 	public void listBoard() {

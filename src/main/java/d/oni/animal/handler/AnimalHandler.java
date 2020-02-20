@@ -2,18 +2,18 @@ package d.oni.animal.handler;
 import java.sql.Date;
 
 import d.oni.animal.domain.Animal;
-import d.oni.animal.util.LinkedList;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class AnimalHandler {
 
-	LinkedList<Animal> animalList ;
+	List<Animal> animalList ;
 
 	Prompt prompt;
 
-	public AnimalHandler(Prompt prompt) {
+	public AnimalHandler(Prompt prompt, List<Animal> animalList) {
 		this.prompt = prompt;
-		this.animalList = new LinkedList<>();
+		this.animalList = animalList;
 	}
 	public void listAnimal() {
 		Animal[] arr =this.animalList.toArray(new Animal[this.animalList.size()]);

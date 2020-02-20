@@ -2,13 +2,12 @@ package d.oni.animal.util;
 
 import java.lang.reflect.Array;
 
-public class LinkedList<E> {
+
+public class LinkedList<E> extends List<E> {
   
   Node<E> first;
   
   Node<E> last;
-  
-  int size;
   
   public void add(E value) {
     Node<E> newNode = new Node<>();

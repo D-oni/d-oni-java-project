@@ -1,8 +1,8 @@
 package d.oni.animal.handler;
 import java.sql.Date;
+import java.util.AbstractList;
 
 import d.oni.animal.domain.Board;
-import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class BoardHandler {

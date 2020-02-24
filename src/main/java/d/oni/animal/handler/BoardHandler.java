@@ -7,10 +7,10 @@ import d.oni.animal.util.Prompt;
 
 public class BoardHandler {
 
-	List<Board> boardList;
+	AbstractList<Board> boardList;
 	Prompt prompt;
 
-	public BoardHandler(Prompt prompt,List<Board> boardlist) {
+	public BoardHandler(Prompt prompt,AbstractList<Board> boardlist) {
 		this.prompt = prompt;
 		this.boardList = boardlist;
 	}

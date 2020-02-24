@@ -1,16 +1,16 @@
 package d.oni.animal.handler;
 
+import java.util.AbstractList;
+
 import d.oni.animal.domain.Infomation;
-import d.oni.animal.util.LinkedList;
-import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class InfoHandler {
 
-	List<Infomation> infoList;
+	AbstractList<Infomation> infoList;
 	Prompt prompt;
 
-	public InfoHandler(Prompt prompt,List<Infomation> infolist) {
+	public InfoHandler(Prompt prompt,AbstractList<Infomation> infolist) {
 		this.prompt=prompt;
 		this.infoList = infolist;
 	}

@@ -1,17 +1,17 @@
 package d.oni.animal.handler;
 import java.sql.Date;
+import java.util.AbstractList;
 
 import d.oni.animal.domain.Animal;
-import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class AnimalHandler {
 
-	List<Animal> animalList ;
+	AbstractList<Animal> animalList ;
 
 	Prompt prompt;
 
-	public AnimalHandler(Prompt prompt, List<Animal> animalList) {
+	public AnimalHandler(Prompt prompt, AbstractList<Animal> animalList) {
 		this.prompt = prompt;
 		this.animalList = animalList;
 	}

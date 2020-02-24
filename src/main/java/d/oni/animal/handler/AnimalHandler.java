@@ -1,23 +1,28 @@
 package d.oni.animal.handler;
 import java.sql.Date;
-import java.util.AbstractList;
 
 import d.oni.animal.domain.Animal;
+import d.oni.animal.util.Iterator;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class AnimalHandler {
 
-	AbstractList<Animal> animalList ;
+	List<Animal> animalList ;
 
 	Prompt prompt;
 
-	public AnimalHandler(Prompt prompt, AbstractList<Animal> animalList) {
+	public AnimalHandler(Prompt prompt, List<Animal> list) {
 		this.prompt = prompt;
-		this.animalList = animalList;
+		this.animalList = list;
 	}
 	public void listAnimal() {
-		Animal[] arr =this.animalList.toArray(new Animal[this.animalList.size()]);
-		for(Animal a : arr) {
+
+Iterator<Animal> iterator = animalList.Iterator();
+
+while(iterator.hasNext()) {
+	Animal a = iterator.next();
+	
 			System.out.printf("%d, %s, %s, %d, %s, %s, %d\n",
 					a.getNo(), a.getName(), a.getText(), a.getChoose(), a.getNum(), a.getDate(), a.getViewCount());
 		}

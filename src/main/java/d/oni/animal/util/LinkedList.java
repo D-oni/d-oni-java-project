@@ -1,8 +1,7 @@
-package com.eomcs.util;
-
+package d.oni.animal.util;
 import java.lang.reflect.Array;
 
-public class LinkedList<E> extends AbstractList<E> {
+public abstract class LinkedList<E> extends AbstractList<E> {
   
   Node<E> first;
   

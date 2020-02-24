@@ -1,28 +1,32 @@
 package d.oni.animal.handler;
 import java.sql.Date;
-import java.util.AbstractList;
 
 import d.oni.animal.domain.Board;
+import d.oni.animal.util.Iterator;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
+
 public class BoardHandler {
-
-	AbstractList<Board> boardList;
-	Prompt prompt;
-
-	public BoardHandler(Prompt prompt,AbstractList<Board> boardlist) {
-		this.prompt = prompt;
-		this.boardList = boardlist;
-	}
+	  
+	  List<Board> boardList;
+	  
+	  Prompt prompt;
+	  
+	  public BoardHandler(Prompt prompt, List<Board> list) {
+	    this.prompt = prompt;
+	    this.boardList = list;
+	  }
+	  
 
 	public void listBoard() {
-		// BoardList의 보관된 값을 받을 배열을 준비한다.
-		Board[] arr = new Board[this.boardList.size()];
 
-		// toArray()에게 빈 배열을 넘겨서 복사 받는다.
-		this.boardList.toArray(arr);
+		Iterator<Board> iterator =  boardList.Iterator();
 
-		for (Board b : arr) {
+		while (iterator.hasNext()) {
+
+			Board b = iterator.next();
+			
 			System.out.printf("%d, %s, %d, %s, %d\n",
 					b.getNum(), b.getText(), b.getScrap(), b.getDate(), b.getViewCount());
 		}
@@ -75,7 +79,7 @@ public class BoardHandler {
 		newBoard.setNum(oldBoard.getNum());
 		newBoard.setViewCount(oldBoard.getViewCount());
 		newBoard.setScrap(oldBoard.getScrap());
-		 newBoard.setDate(new Date(System.currentTimeMillis()));
+		newBoard.setDate(new Date(System.currentTimeMillis()));
 		newBoard.setText(prompt.inputString(
 				String.format("내용(%s)? ", oldBoard.getText()),oldBoard.getText()));
 
@@ -85,11 +89,11 @@ public class BoardHandler {
 			return;
 		}
 		this.boardList.set(index, newBoard);
-			System.out.println("게시글을 변경했습니다.");
-		}
+		System.out.println("게시글을 변경했습니다.");
+	}
 
 	public void deleteBoard() {
-	
+
 		int index = indexOfBoard(prompt.inputInt("번호? "));
 
 		if (index == -1) {

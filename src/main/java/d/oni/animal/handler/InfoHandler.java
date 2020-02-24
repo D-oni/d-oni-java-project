@@ -1,18 +1,19 @@
 package d.oni.animal.handler;
 
-import java.util.AbstractList;
+import java.util.Iterator;
 
 import d.oni.animal.domain.Infomation;
+import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class InfoHandler {
 
-	AbstractList<Infomation> infoList;
+	List<Infomation> infoList;
 	Prompt prompt;
 
-	public InfoHandler(Prompt prompt,AbstractList<Infomation> infolist) {
+	public InfoHandler(Prompt prompt, List<Infomation> list) {
 		this.prompt=prompt;
-		this.infoList = infolist;
+		this.infoList = list;
 	}
 
 
@@ -36,9 +37,10 @@ public class InfoHandler {
 	}
 
 	public void listInfo() {
-		Object[] arr = this.infoList.toArray();
-		for(Object obj : arr) {
-			Infomation i = (Infomation)obj;
+		Iterator<Infomation> iterator =infoList.Iterator();
+		
+		while(iterator.hasNext()) {
+			Infomation i = iterator.next();
 			System.out.printf("%d,%s,%d,%s,%s,%s,%s,%s\n",
 					i.getNo(), i.getName(), i.getNum(), i.getMail(), i.getAdd(), i.getPhoto(), i.getPhone(), i.getRegisteredDate());
 		}

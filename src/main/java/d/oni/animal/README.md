@@ -1,58 +1,82 @@
-# 23_1 - 일반화(generalization) 상속 기법을 사용하여 ArrayList와 LinkedList의 공통점 분리하기
+# 24_1 - `Iterator` 디자인 패턴의 활용
 
 ## 학습 목표
 
-- 상속 기법 중 일반화 기법을 수행할 수 있다.
-- 클래스의 공통점을 유지보수 하기 쉽게 분리하기 위해 상속을 이용할 수 있다.
-- 다형적 변수를 이용하여 다양한 서브 타입 객체를 다룰 수 있다.
-- 의존성 주입(DI) 기법을 이용하여 객체를 부품처럼 교체하기 쉽도록 만들 수 있다.
+- `Iterator` 디자인 패턴의 용도를 이해하고 활용할 수 있다.
+- 자료구조와 상관없이 일관된 방법으로 데이터를 조회할 수 있다.
 
-### 주요 개념
-
-- 일반화(Generalization)
-  - 서브 클래스의 공통 분모를 추출하여 수퍼 클래스로 정의하고 상속 관계를 맺는 것.
-- 다형적 변수(Polymorphic Variables)
-  - Handler에서 사용할 목록 관리 객체를 수퍼 클래스의 레퍼런스로 선언하는 것.
-  - 이를 통해 List의 서브 객체로 교체하기 쉽도록 만드는 것.
-- 의존성 주입(DI; Dependency Injection)
-  - Handler가 의존하는 객체를 내부에서 생성하지 않고 생성자를 통해 외부에서 주입 받는 것.
-  - 이를 통해 의존 객체 교체가 쉽도록 만드는 것.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/util/List.java 추가
-- src/main/java/com/eomcs/util/ArrayList.java 변경
-- src/main/java/d/oni/util/LinkedList.java 변경
+- src/main/java/d/oni/util/Iterator.java 추가
+- src/main/java/d/oni/util/ListIterator.java 추가
+- src/main/java/d/oni/util/List.java 변경
+- src/main/java/d/oni/util/AbstractList.java 변경
 - src/main/java/d/oni/animal/handler/AnimalHandler.java 변경
 - src/main/java/d/oni/animal/handler/InfoHandler.java 변경
 - src/main/java/d/oni/animal/handler/BoardHandler.java 변경
+- src/main/java/d/oni/util/StackIterator.java 추가
+- src/main/java/d/oni/util/Stack.java 변경
+- src/main/java/d/oni/util/QueueIterator.java 추가
+- src/main/java/d/oni/util/Queue.java 변경
 - src/main/java/d/oni/animal/App.java 변경
 
 ## 실습
 
-### 훈련1. 데이터 목록을 다루는 ArrayList와 LinkedList의 공통점을 찾아 별도의 클래스로 분리하라.
+### 훈련1. Stack 이나 Queue, List 에서 값을 꺼내는 방법을 통일.
 
-- List.java
-    - ArrayList와 LinkedList의 공통 멤버를(필드와 메서드)를 선언한다.
-    - 서브 클래스에서 반드시 재정의 해야 하는 메서드는 추상 메서드로 구현하지 않고 놓아 둔다. 
-- ArrayList.java
-    - `AbstractList`를 상속 받는다.
-    - 상속 받은 추상 메서드를 구현한다.
-- LinkedList.java
-    - `AbstractList`를 상속 받는다.
-    - 상속 받은 추상 메서드를 구현한다.
-- AnimalHandler.java
-    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
-    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
-    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
-- InfoHandler.java
-    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
-    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
-    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
-- BoardHandler.java
-    - ArrayList 또는 LinkedList를 직접 지정하는 대신에 추상클래스를 필드로 선언한다.
-    - 생성자에서 구체적으로 구현한 서브 클래스를 공급받도록 변경한다.
-    - 따라서 특정 클래스(ArrayList나 LinkedList)에 의존하는 코드를 제거한다.
-- App.java
-    - XxxHandler가 사용할 의존 객체(AbstractList 객체)를 준비한다.
-    - XxxHandler를 생성할 때 해당 의존 객체를 넘겨준다.
+- Iterator.java 생성
+    - 인터페이스로 값을 꺼내는 규칙 정의.
+
+### 훈련2. List에서 값을 꺼내는 Iterator 구현체 정의.
+
+- ListIterator.java 생성
+    - List 객체에서 값을 꺼내는 일을 한다.
+    - Iterator 사용법을 따른다.
+
+### 훈련3. 모든 List 구현체(ArrayList, LinkedList)가 Iterator 객체를 리턴하도록 규칙 추가.
+
+- List.java 변경
+    - iterator() 메서드 추가
+
+### 훈련4. 모든 List 구현체가 Iterator 객체를 리턴하도록 iterator() 메서드 구현.
+
+- AbstractList.java 변경
+    - List 인터페이스에 추가된 iterator() 규칙 구현.
+    - ArrayList나 LinkedList는 이 클래스를 상속 받기 때문에 이 클래스에서 iterator()를 구현하면 된다.
+
+### 훈련5. List(예: ArrayList, LinkedList)에서 목록을 꺼내는 경우 Iterator 활용.
+
+- BoardHandler.java 변경
+  - listBoard() 변경
+- AnimalHandler.java 변경
+  - listAnimal() 변경
+- InfoHandler.java 변경
+  - listInfo() 변경 
+
+### 훈련6. Stack 객체에 들어 있는 값을 꺼내 줄 Iterator 구현체를 준비하고 리턴.
+
+- StackIterator.java 생성
+  - Iterator 인터페이스 구현.
+- Stack.java 변경
+    - `Iterator` 구현체를 리턴하는 iterator() 정의.
+
+### 훈련7. Queue 객체에 들어 있는 값을 꺼내 줄 Iterator 구현체를 준비하고 리턴.
+    
+- QueueIterator.java 생성
+  - Iterator 인터페이스 구현.
+- Queue.java 변경
+    - `Iterator` 구현체를 리턴하는 iterator() 를 정의.
+    
+### 훈련8. Stack과 Queue에서 값을 꺼낼 때 Iterator를 사용하도록 변경.
+
+- App.java 변경
+    - `history`, `history2` 명령을 처리할 때 Stack, Queue 객체에서 직접 값을 꺼내지 않고 Iterator 구현체를 통해서 꺼낸다.
+    - printCommandHistory()와 printCommandHistory2()는 코드가 같기 때문에 하나로 합친다.
+    
+    
+    
+    
+    
+    
+    

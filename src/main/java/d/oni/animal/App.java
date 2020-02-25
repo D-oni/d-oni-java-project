@@ -93,7 +93,7 @@ public class App {
 		          printCommandHistory(commandStack.iterator());
 		          break;
 		        case "history2":
-		          printCommandHistory(commandQueue.iterator());
+		          printCommandHistory(commandQueue.Iterator());
 		          break;
 			default:
 				if (!command.equalsIgnoreCase("quit")) {

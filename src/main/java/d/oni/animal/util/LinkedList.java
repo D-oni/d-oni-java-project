@@ -1,7 +1,7 @@
 package d.oni.animal.util;
 import java.lang.reflect.Array;
 
-public abstract class LinkedList<E> extends AbstractList<E> {
+public class LinkedList<E> extends AbstractList<E> {
   
   Node<E> first;
   

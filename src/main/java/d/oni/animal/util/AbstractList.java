@@ -8,6 +8,7 @@ public abstract class AbstractList<E> implements List<E> {
   public int size() {
     return size;
   }
+  
   @Override
 	public Iterator<E> Iterator() {
 	  return new ListIterator<E>(this);
@@ -22,13 +23,11 @@ public abstract class AbstractList<E> implements List<E> {
 		}
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+			return cursor < list.size();
 		}
 		@Override
 		public E next() {
-			// TODO Auto-generated method stub
-			return null;
+			return list.get(cursor++);
 		}
 	}
 

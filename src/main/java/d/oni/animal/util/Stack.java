@@ -67,15 +67,16 @@ public class Stack<E> implements Cloneable {
   }
 
 public Iterator<E> iterator() {
-	return new StackIterator<E>(this);
+	return this.new StackIterator<E>();
 }
 
-public class StackIterator<E> implements Iterator<E> {
+ class StackIterator<T> implements Iterator<T> {
 	  
-	  Stack<E> stack;
+	  Stack<T> stack;
 	  
-	  public StackIterator(Stack<E> stack) {
-	    this.stack = stack.clone();
+	  @SuppressWarnings("unchecked")
+	public StackIterator() {
+	    this.stack = (Stack<T>)Stack.this.clone();
 	  }
 	  
 	  @Override
@@ -84,7 +85,7 @@ public class StackIterator<E> implements Iterator<E> {
 	  }
 	  
 	  @Override
-	  public E next() {
+	  public T next() {
 	    return stack.pop();
 	  }
 	}

@@ -2,35 +2,35 @@ package d.oni.animal.util;
 
 
 public abstract class AbstractList<E> implements List<E> {
-  
-  protected int size;
-  
-  public int size() {
-    return size;
-  }
-  
-  @Override
-	public Iterator<E> Iterator() {
-	  return new ListIterator<E>(this);
-  }
-  
-  public class ListIterator<E> implements Iterator<E>{
-		List<E> list;
-		int cursor;
 
-		public ListIterator(List<E> list) {
-			this.list=list;
-		}
-		@Override
-		public boolean hasNext() {
-			return cursor < list.size();
-		}
-		@Override
-		public E next() {
-			return list.get(cursor++);
-		}
+	protected int size;
+
+	public int size() {
+		return size;
 	}
 
+	@Override
+	public Iterator<E> Iterator() {
+
+		class ListIterator<T> implements Iterator<T>{
+			List<T> list;
+			int cursor;
+
+			@SuppressWarnings("unchecked")
+			public ListIterator() {
+				this.list=(List<T>) AbstractList.this;
+			}
+			@Override
+			public boolean hasNext() {
+				return cursor < list.size();
+			}
+			@Override
+			public T next() {
+				return list.get(cursor++);
+			}
+		}
+		return new ListIterator<E>();
+	}
 }
 
 

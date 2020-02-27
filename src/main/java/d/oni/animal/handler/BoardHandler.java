@@ -21,7 +21,7 @@ public class BoardHandler {
 
 	public void listBoard() {
 
-		Iterator<Board> iterator =  boardList.Iterator();
+		Iterator<Board> iterator =  boardList.iterator();
 
 		while (iterator.hasNext()) {
 

@@ -18,5 +18,5 @@ public interface List<E> {
 
 	int size();
 	
-	Iterator<E> Iterator();
+	Iterator<E> iterator();
 }

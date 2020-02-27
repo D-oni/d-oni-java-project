@@ -68,14 +68,9 @@ public class Stack<E> implements Cloneable {
 
 	public Iterator<E> iterator() {
 
-		class StackIterator<T> implements Iterator<T> {
+		return new Iterator<E>() {
 
-			Stack<T> stack;
-
-			@SuppressWarnings("unchecked")
-			public StackIterator() {
-				this.stack = (Stack<T>)Stack.this.clone();
-			}
+			Stack<E> stack = (Stack<E>)Stack.this.clone();
 
 			@Override
 			public boolean hasNext() {
@@ -83,11 +78,10 @@ public class Stack<E> implements Cloneable {
 			}
 
 			@Override
-			public T next() {
+			public E next() {
 				return stack.pop();
 			}
-		}
-		return new StackIterator<E>();
+		};
 	}
 
 }

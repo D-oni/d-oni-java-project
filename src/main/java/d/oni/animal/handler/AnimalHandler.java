@@ -18,7 +18,7 @@ public class AnimalHandler {
 	}
 	public void listAnimal() {
 
-Iterator<Animal> iterator = animalList.Iterator();
+Iterator<Animal> iterator = animalList.iterator();
 
 while(iterator.hasNext()) {
 	Animal a = iterator.next();

@@ -37,7 +37,7 @@ public class InfoHandler {
 	}
 
 	public void listInfo() {
-		Iterator<Infomation> iterator =infoList.Iterator();
+		Iterator<Infomation> iterator =infoList.iterator();
 		
 		while(iterator.hasNext()) {
 			Infomation i = iterator.next();

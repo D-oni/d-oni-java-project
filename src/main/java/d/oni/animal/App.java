@@ -1,26 +1,27 @@
 package d.oni.animal;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
-
 import d.oni.animal.domain.Animal;
 import d.oni.animal.domain.Board;
 import d.oni.animal.domain.Infomation;
 import d.oni.animal.handler.AnimalHandler;
 import d.oni.animal.handler.BoardHandler;
 import d.oni.animal.handler.InfoHandler;
-import d.oni.animal.util.ArrayList;
-import d.oni.animal.util.Iterator;
-import d.oni.animal.util.LinkedList;
 import d.oni.animal.util.Prompt;
-import d.oni.animal.util.Queue;
-import d.oni.animal.util.Stack;
 
 public class App {
 
 	static Scanner keyboard = new Scanner(System.in);
 
-	static Stack<String> commandStack = new Stack<>();
-	static Queue<String> commandQueue = new Queue<>();
+	 static Deque<String> commandStack = new ArrayDeque<>();
+	  static Queue<String> commandQueue = new LinkedList<>();
+	 
 
 	public static void main(String[] args) {
 
@@ -41,7 +42,11 @@ public class App {
 			System.out.print("\n명령> ");
 			command = keyboard.nextLine();
 
+			if (command.length() == 0)
+				continue;
+
 			commandStack.push(command);
+			commandQueue.offer(command);
 
 			switch (command) {
 			case "/animal/add":
@@ -90,11 +95,11 @@ public class App {
 				infoHandler.deleteInfo();
 				break;
 			case "history":
-		          printCommandHistory(commandStack.iterator());
-		          break;
-		        case "history2":
-		          printCommandHistory(commandQueue.iterator());
-		          break;
+				printCommandHistory(commandStack.iterator());
+				break;
+			case "history2":
+				printCommandHistory(commandQueue.iterator());
+				break;
 			default:
 				if (!command.equalsIgnoreCase("quit")) {
 					System.out.println("실행할 수 없는 명령입니다.");

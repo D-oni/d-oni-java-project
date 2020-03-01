@@ -1,9 +1,9 @@
 package d.oni.animal.handler;
 import java.sql.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import d.oni.animal.domain.Animal;
-import d.oni.animal.util.Iterator;
-import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class AnimalHandler {

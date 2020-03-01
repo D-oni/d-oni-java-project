@@ -1,9 +1,9 @@
 package d.oni.animal.handler;
 
 import java.util.Iterator;
+import java.util.List;
 
 import d.oni.animal.domain.Infomation;
-import d.oni.animal.util.List;
 import d.oni.animal.util.Prompt;
 
 public class InfoHandler {

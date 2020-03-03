@@ -22,6 +22,7 @@
 
 ## 실습 소스 및 결과
 
+<<<<<<< HEAD
 - src/main/java/d/oni/animal/handler/Command.java 추가
 - src/main/java/d/oni/animal/handler/AnimalAddCommand.java 추가
 - src/main/java/d/oni/animal/handler/AnimalListCommand.java 추가
@@ -64,6 +65,29 @@
 
 ### 훈련 3: `Map`으로 `Command` 객체를 관리하라.
 
+=======
+- src/main/java/d/oni/util/List.java 삭제
+- src/main/java/d/oni/util/AbstractList.java 삭제
+- src/main/java/d/oni/util/ArrayList.java 삭제
+- src/main/java/d/oni/util/LinkedList.java 삭제
+- src/main/java/d/oni/util/Iterator.java 삭제
+- src/main/java/d/oni/util/Stack.java 삭제
+- src/main/java/d/oni/util/Queue.java 삭제
+- src/main/java/d/oni/lms/handler/BoardHandler.java 변경
+- src/main/java/d/oni/lms/handler/AnimalHandler.java 변경
+- src/main/java/d/oni/lms/handler/InfoHandler.java 변경
+- src/main/java/d/oni/lms/App.java 변경
+
+
+### 1. ArrayList, LinkedList, Stack, Queue 클래스를 자바 컬렉션 API로 교체.
+
+- BoardHandler.java
+    - `List` 를 `java.util.List` 인터페이스로 교체.
+- AnimalHandler.java
+    - `List` 를 `java.util.List` 인터페이스로 교체.
+- InfoHandler.java
+    - `List` 를 `java.util.List` 인터페이스로 교체.
+>>>>>>> c77ebb134aa4bb5fd5908d121238a24c878009fb
 - App.java
     - 명령어를 `key`, `Command` 객체를 `value`로 하여 Map에 저장한다.
     - 각 명령에 대해 조건문으로 분기하는 부분을 간략하게 변경한다.

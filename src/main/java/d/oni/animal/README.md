@@ -6,7 +6,7 @@
 - 예외 처리 문법의 존재 의의 사용법을 한다.
 
 ## 실습 소스 및 결과
-- src/main/java/d/oni/lms/App.java 변경
+- src/main/java/d/oni/Animal/App.java 변경
 
 ## 실습  
 
@@ -18,7 +18,7 @@
 
 다음과 같이 잘못된 형식으로 값을 입력하더라도 시스템을 멈추지 않고 계속 실행한다.
 ```
-명령> /lesson/add
+명령> /board/add
 번호? 1
 수업명? 자바 기초
 설명? 자바 기초 문법

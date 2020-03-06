@@ -1,5 +1,11 @@
 package d.oni.animal;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -37,28 +43,31 @@ public class App {
 	 static Deque<String> commandStack = new ArrayDeque<>();
 	  static Queue<String> commandQueue = new LinkedList<>();
 	 
+	  LinkedList<Animal> animalList = new LinkedList<>();
+	  ArrayList<Board> boardList = new ArrayList<>();
+	  LinkedList<Infomation> infoList = new LinkedList<>();
 
 	public static void main(String[] args) {
 
-		Prompt prompt = new Prompt(keyboard);
+		loadAnimalData();
+		loadInfoData();
+		loadBoardData();
 		
+		Prompt prompt = new Prompt(keyboard);
 		HashMap<String,Command> commandMap = new HashMap<>();
 		
-		LinkedList<Animal> animalList = new LinkedList<>();
 		commandMap.put("/animal/add", new AnimalAddCommand(prompt,animalList));
 		commandMap.put("/animal/list", new AnimalListCommand(prompt,animalList));
 		commandMap.put("/animal/detail", new AnimalDetailCommand(prompt,animalList));
 		commandMap.put("/animal/update", new AnimalUpdateCommand(prompt,animalList));
 		commandMap.put("/animal/delete", new AnimalDeleteCommand(prompt,animalList));
 		
-		ArrayList<Board> boardList = new ArrayList<>();
 		commandMap.put("/board/add", new BoardAddCommand(prompt,boardList));
 		commandMap.put("/board/list", new BoardListCommand(prompt,boardList));
 		commandMap.put("/board/detail", new BoardDetailCommand(prompt,boardList));
 		commandMap.put("/board/update", new BoardUpdateCommand(prompt,boardList));
 		commandMap.put("/board/delete", new BoardDeleteCommand(prompt,boardList));
 
-		LinkedList<Infomation> infoList = new LinkedList<>();
 		commandMap.put("/info/add", new InfoAddCommand(prompt,infoList));
 		commandMap.put("/info/list", new InfoListCommand(prompt,infoList));
 		commandMap.put("/info/detail", new InfoDetailCommand(prompt,infoList));
@@ -105,7 +114,12 @@ public class App {
 		       }
 
 		       keyboard.close();
-		     }
+		       
+		       saveAnimalData();
+		       saveInfoData();
+		       saveBoardData();
+		    
+	}
 	private static void printCommandHistory(Iterator<String> iterator) {
 		int count = 0;
 		while(iterator.hasNext()) {
@@ -122,6 +136,101 @@ public class App {
 			}
 		}
 	}
+
+	private static void loadBoardData() {
+
+		File file = new File("./board.csv");
+		
+		FileReader in = null;
+		Scanner dataScan = null;
+
+		try {
+		in = new FileReader(file);
+		
+		dataScan = new Scanner(in);
+		int count = 0;
+		
+		while(true) {
+			try {
+				String line = dataScan.nextLine();
+				
+				String[] data = line.split(",");
+				
+				Board board = new Board();
+				board.setNum(Integer.parseInt(data[0]));
+				board.setText(data[1]);
+				board.setScrap(Integer.parseInt(data[2]));
+				board.setDate(Date.valueOf(data[3]));
+				board.setViewCount(Integer.parseInt(data[4]));
+				
+				boardList.add(board);
+				count++;
+
+	        } catch (Exception e) {
+	          break;
+	        }
+	      }
+	      System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", count);
+
+	    } catch (FileNotFoundException e) {
+	      System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
+	    } finally {
+	      try {
+	        dataScan.close();
+	      } catch (Exception e) {
+	      }
+	      try {
+	        in.close();
+	      } catch (Exception e) {
+	      }
+	    }
+	  }
+private static void saveBoardData() {
+
+	File file = new File("./board.csv");
+	
+	FileWriter out = null;
+	
+	try {
+	out = new FileWriter(file);
+	int count = 0;
+	
+	for(Board board: boardList) {
+		String line = String.format("%d,%s,%d,%s,%d",board.getNum(),board.getText(),board.getScrap(),
+				board.getDate(),board.getViewCount());
+		out.write(line);
+		count++;
+	}
+	System.out.printf("총 %d개의 수업 데이터를 저장했습니다.\n",count);
+	
+} catch (IOException e) {
+    System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
+
+  } finally {
+    try {
+      out.close();
+    } catch (IOException e) {
+    }
+  }
+}
+	private static void loadInfoData() {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void saveInfoData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void loadAnimalData() {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void saveAnimalData() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
 
 

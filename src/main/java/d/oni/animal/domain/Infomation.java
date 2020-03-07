@@ -3,6 +3,18 @@ package d.oni.animal.domain;
 import java.sql.Date;
 
 public class Infomation {
+
+	private int no;
+	private String name;
+	private int num;
+	private String mail;
+	private  String add;
+	private String photo;
+	private String phone;
+	private String registeredDate;
+	private Date date;
+	private int viewCount;
+	
   @Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,16 +83,25 @@ public class Infomation {
 			return false;
 		return true;
 	}
-private int no;
-  private String name;
-  private int num;
-  private String mail;
-  private  String add;
-  private String photo;
-  private String phone;
-  private String registeredDate;
-  private Date date;
-  private int viewCount;
+	public static Infomation valueOf(String csv) {
+		String[] data = csv.split(",");
+		
+		Infomation info = new Infomation();
+
+		info.setNo (Integer.parseInt(data[0]));
+		info.setName(data[1]);
+		info.setNum(Integer.parseInt(data[2]));
+		info.setMail(data[3]);
+		info.setAdd(data[4]);
+		info.setPhoto(data[5]);
+		info.setPhone(data[6]);
+		info.setRegisteredDate(data[7]);
+		return info;
+	}
+	public String toCsvString() {
+		return String.format("%d,%s,%d,%s,%s,%s,%s,%s\n",
+        		this.getNo(), this.getName(), this.getNum(), this.getMail(), this.getAdd(), this.getPhoto(), this.getPhone(), this.getRegisteredDate());
+	}
   public int getNo() {
     return no;
   }

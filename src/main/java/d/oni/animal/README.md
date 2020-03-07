@@ -1,30 +1,45 @@
-#  예외가 발생했을 때 시스템을 멈추지 않게 하는 방법
+# 28_2 - CSV 문자열을 객체로 전환하는 기능을 도메인 객체로 이전 
 
-## 학습목표
+## 학습 목표 
 
-- 예외 처리 문법을 사용할 수 있다.
-- 예외 처리 문법의 존재 의의 사용법을 한다.
+- 코드를 메서드로 추출할 수 있다.(리팩토링)
+- 메서드를 역할에 맞춰 다른 클래스로 이동할 수 있다.(리팩토링)
+- 스태틱 메서드의 용도를 이해하고 활용할 수 있다.
+- 인스턴스 메서드의 용도를 이해하고 활용할 수 있다.
 
 ## 실습 소스 및 결과
-- src/main/java/d/oni/Animal/App.java 변경
 
-## 실습  
+- src/main/java/d/oni/animal/App.java 변경
+- src/main/java/d/oni/animal/domain/Board.java 변경
+- src/main/java/d/oni/animal/domain/Infomation.java 변경
+- src/main/java/d/oni/animal/domain/Animal.java 변경
+  
 
+###  게시물 데이터를 CSV 문자열로 다루는 코드를 Board 클래스로 옮긴다.  
 
+- Board.java
+  - CSV 문자열을 가지고 Board 객체를 생성하는 valueOf() 를 추가한다.
+  - Board 객체를 가지고 CSV 문자열을 리턴하는 toCsvString() 를 추가한다.
 - App.java
-    - 명령을 처리하는 코드를 try ~ catch ~ 블록으로 묶는다.
+  - loadBoardData() 를 변경한다.
+  - saveBoardData() 를 변경한다.
+  
+### 회원 데이터를 CSV 문자열로 다루는 코드를 Member 클래스로 옮긴다.  
 
-#### 실행 결과
+- Infomation.java
+  - CSV 문자열을 가지고 Infomation 객체를 생성하는 valueOf() 를 추가한다.
+  - Infomation 객체를 가지고 CSV 문자열을 리턴하는 toCsvString() 를 추가한다.
+- App.java
+  - loadInfoata() 를 변경한다.
+  - saveInfoData() 를 변경한다.
+  
+### 동물 데이터를 CSV 문자열로 다루는 코드를 Animal 클래스로 옮긴다.  
 
-다음과 같이 잘못된 형식으로 값을 입력하더라도 시스템을 멈추지 않고 계속 실행한다.
-```
-명령> /board/add
-번호? 1
-수업명? 자바 기초
-설명? 자바 기초 문법
-시작일? 2019-1-1
-종료일? 20195-5
-명령어 실행 중 오류 발생 : java.lang.IllegalArgumentException
-
-명령> 
-```
+- Animal.java
+  - CSV 문자열을 가지고 Animal 객체를 생성하는 valueOf() 를 추가한다.
+  - Animal 객체를 가지고 CSV 문자열을 리턴하는 toCsvString() 를 추가한다.
+- App.java
+  - loadAnimalData() 를 변경한다.
+  - saveAnimalData() 를 변경한다.
+  
+  

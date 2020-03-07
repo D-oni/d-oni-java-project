@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -146,24 +145,12 @@ public class App {
 
 		try {
 			in = new FileReader(file);
-
 			dataScan = new Scanner(in);
 			int count = 0;
 
 			while(true) {
 				try {
-					String line = dataScan.nextLine();
-
-					String[] data = line.split(",");
-
-					Board board = new Board();
-					board.setNum(Integer.parseInt(data[0]));
-					board.setText(data[1]);
-					board.setScrap(Integer.parseInt(data[2]));
-					board.setDate(Date.valueOf(data[3]));
-					board.setViewCount(Integer.parseInt(data[4]));
-
-					boardList.add(board);
+					boardList.add(Board.valueOf(dataScan.nextLine()));
 					count++;
 
 				} catch (Exception e) {
@@ -196,9 +183,7 @@ public class App {
 			int count = 0;
 
 			for(Board board: boardList) {
-				String line = String.format("%d,%s,%d,%s,%d",board.getNum(),board.getText(),board.getScrap(),
-						board.getDate(),board.getViewCount());
-				out.write(line);
+				out.write(board.toString()+"\n");
 				count++;
 			}
 			System.out.printf("총 %d개의 수업 데이터를 저장했습니다.\n",count);
@@ -227,21 +212,7 @@ public class App {
 
 			while (true) {
 				try {
-					String line = dataScan.nextLine();
-					String[] data = line.split(",");
-					
-					Infomation info = new Infomation();
-
-					info.setNo (Integer.parseInt(data[0]));
-					info.setName(data[1]);
-					info.setNum(Integer.parseInt(data[2]));
-					info.setMail(data[3]);
-					info.setAdd(data[4]);
-					info.setPhoto(data[5]);
-					info.setPhone(data[6]);
-					info.setRegisteredDate(data[7]);
-
-					 infoList.add(info);
+					 infoList.add(Infomation.valueOf(dataScan.nextLine()));
 			          count++;
 
 			        } catch (Exception e) {
@@ -274,9 +245,7 @@ public class App {
 				      int count = 0;
 
 				      for (Infomation info: infoList) {
-				        String line = String.format("%d,%s,%d,%s,%s,%s,%s,%s\n",
-				        		info.getNo(), info.getName(), info.getNum(), info.getMail(), info.getAdd(), info.getPhoto(), info.getPhone(), info.getRegisteredDate());
-				        out.write(line);
+				        out.write(info.toCsvString() + "\n");
 				        count++;
 				      }
 				      System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", count);
@@ -306,21 +275,7 @@ public class App {
 
 				      while (true) {
 				        try {
-				          String line = dataScan.nextLine();
-				          String[] data = line.split(",");
-
-				          Animal animal = new Animal();
-
-				  		animal.setNo(Integer.parseInt(data[0]));
-				  		animal.setName(data[1]);
-				  		animal.setText(data[2]);
-				  		animal.setChoose(Integer.parseInt(data[3]));
-				  		animal.setNum(data[4]);
-				  		animal.setDate(Date.valueOf(data[2]));
-				  		animal.setViewCount(Integer.parseInt(data[3]));
-
-
-				          animalList.add(animal);
+				          animalList.add(Animal.valueOf(dataScan.nextLine()));
 				          count++;
 
 				        } catch (Exception e) {
@@ -353,9 +308,7 @@ public class App {
 				      int count = 0;
 
 				      for (Animal animal: animalList) {
-				        String line = String.format("%d, %s, %s, %d, %s, %s, %d\n",
-				        		animal.getNo(), animal.getName(), animal.getText(), animal.getChoose(), animal.getNum(), animal.getDate(), animal.getViewCount());
-				        out.write(line);
+				        out.write(animal.toCsvString()+"\n");
 				        count++;
 				      }
 				      System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", count);

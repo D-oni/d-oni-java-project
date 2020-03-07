@@ -8,6 +8,25 @@ public class Animal{    //public:다른 패키지에서  사용 할 수 있게 �
     private String text;
     private int choose;
     
+    public static Animal valueOf(String csv) {
+    String[] data = csv.split(",");
+
+    Animal animal = new Animal();
+
+		animal.setNo(Integer.parseInt(data[0]));
+		animal.setName(data[1]);
+		animal.setText(data[2]);
+		animal.setChoose(Integer.parseInt(data[3]));
+		animal.setNum(data[4]);
+		animal.setDate(Date.valueOf(data[2]));
+		animal.setViewCount(Integer.parseInt(data[3]));
+
+		return animal;
+    }
+    public String toCsvString() {
+    	return String.format("%d, %s, %s, %d, %s, %s, %d\n",
+        		this.getNo(), this.getName(), this.getText(), this.getChoose(), this.getNum(), this.getDate(), this.getViewCount());
+    }
     
     @Override
 	public int hashCode() {

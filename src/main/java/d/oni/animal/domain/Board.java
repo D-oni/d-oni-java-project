@@ -13,23 +13,23 @@ private int num;
     return num;
   }
   
-  public void setNum(int num) {
-    this.num = num;
+  public static Board valueOf(String csv) {
+
+		String[] data = csv.split(",");
+
+		Board board = new Board();
+		board.setNum(Integer.parseInt(data[0]));
+		board.setText(data[1]);
+		board.setScrap(Integer.parseInt(data[2]));
+		board.setDate(Date.valueOf(data[3]));
+		board.setViewCount(Integer.parseInt(data[4]));
+		return board;
+
   }
-  public String getText() {
-    return text;
-  }
-  public void setText(String text) {
-    this.text = text;
-  }
-  public Date getDate() {
-    return date;
-  }
-  public void setDate(Date date) {
-    this.date = date;
-  }
-  public int getViewCount() {
-    return viewCount;
+  
+  public String toString() {
+	  return String.format("%d,%s,%d,%s,%d",this.getNum(),this.getText(),this.getScrap(),
+				this.getDate(),this.getViewCount());
   }
   @Override
 public int hashCode() {
@@ -71,6 +71,25 @@ public boolean equals(Object obj) {
 	return true;
 }
 
+
+public void setNum(int num) {
+	this.num = num;
+}
+public String getText() {
+	return text;
+}
+public void setText(String text) {
+	this.text = text;
+}
+public Date getDate() {
+	return date;
+}
+public void setDate(Date date) {
+	this.date = date;
+}
+public int getViewCount() {
+	return viewCount;
+}
 public void setViewCount(int viewCount) {
     this.viewCount = viewCount ;
   }

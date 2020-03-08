@@ -6,14 +6,20 @@ public class Board {
  
 private int num;
   private String text;
+  private int scrap;
   private Date date;
   private int viewCount;
-  private int scrap;
-  public int getNum() {
-    return num;
-  }
+  private String writer;
   
-  public static Board valueOf(String csv) {
+  public String getWriter() {
+	return writer;
+}
+
+public void setWriter(String writer) {
+	this.writer = writer;
+}
+
+public static Board valueOf(String csv) {
 
 		String[] data = csv.split(",");
 
@@ -71,6 +77,9 @@ public boolean equals(Object obj) {
 	return true;
 }
 
+public int getNum() {
+	return num;
+}
 
 public void setNum(int num) {
 	this.num = num;
@@ -99,5 +108,6 @@ public void setViewCount(int viewCount) {
   public void setScrap(int scrap) {
     this.scrap = scrap;
   }
+
 }
 

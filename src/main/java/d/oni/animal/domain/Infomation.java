@@ -11,11 +11,18 @@ public class Infomation {
 	private  String add;
 	private String photo;
 	private String phone;
-	private String registeredDate;
+	private Date registeredDate;
 	private Date date;
 	private int viewCount;
+	private String writer;
 	
-  @Override
+  public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -95,7 +102,7 @@ public class Infomation {
 		info.setAdd(data[4]);
 		info.setPhoto(data[5]);
 		info.setPhone(data[6]);
-		info.setRegisteredDate(data[7]);
+		info.setRegisteredDate(Date.valueOf(data[7]));
 		return info;
 	}
 	public String toCsvString() {
@@ -144,10 +151,10 @@ public class Infomation {
   public void setPhone(String phone) {
     this.phone = phone;
   }
-  public String getRegisteredDate() {
+  public Date getRegisteredDate() {
     return registeredDate;
   }
-  public void setRegisteredDate(String registeredDate) {
+  public void setRegisteredDate(Date registeredDate) {
     this.registeredDate = registeredDate;
   }
   public Date getDate() {

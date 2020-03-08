@@ -1,14 +1,16 @@
 package d.oni.animal;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,8 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
-
-import com.google.gson.Gson;
 
 import d.oni.animal.domain.Animal;
 import d.oni.animal.domain.Board;
@@ -143,11 +143,24 @@ public class App {
 
 	private static void loadBoardData() {
 
-		File file = new File("./board.json");
+		File file = new File("./board.data");
 
-		try (BufferedReader in = new BufferedReader(new FileReader(file))){
-
-			boardList.addAll(Arrays.asList(new Gson().fromJson(in,Board[].class)));
+		try (DataInputStream in = 
+				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
+			int size = in.readInt();
+			for(int i = 0; i < size; i++) {
+				Board board = new Board();
+				board.setNum(in.readInt());
+				board.setText(in.readUTF());
+				board.setScrap(in.readInt());
+				board.setDate(Date.valueOf(in.readUTF()));
+				board.setViewCount(in.readInt());
+				String writer = in.readUTF();
+				if(writer.length() > 0) {
+					board.setWriter(writer);
+				}
+				boardList.add(board);
+			}
 			System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
 
 		} catch (IOException e) {
@@ -156,10 +169,18 @@ public class App {
 	}
 	private static void saveBoardData() {
 
-		File file = new File("./board.json");
+		File file = new File("./board.data");
 
-		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){
-			out.write(new Gson().toJson(boardList));
+		try (DataOutputStream out 
+				= new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
+			out.write(boardList.size());
+			for(Board board : boardList) {
+				out.writeInt(board.getNum());
+				out.writeUTF(board.getText());
+				out.writeInt(board.getScrap());
+				out.writeUTF(board.getDate().toString());
+				out.writeInt(board.getViewCount());
+			}
 			System.out.printf("총 %d개의 게시물 데이터를 저장했습니다.\n",boardList.size());
 
 		} catch (IOException e) {
@@ -169,12 +190,23 @@ public class App {
 	}
 	private static void loadInfoData() {
 
-		File file = new File("./info.json");
+		File file = new File("./info.data");
 
-		try(BufferedReader in = new BufferedReader(new FileReader(file))){
-
-			infoList.addAll(Arrays.asList(new Gson().fromJson(in,Infomation[].class)));
-
+		try(DataInputStream in =
+				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
+			int size = in.readInt();
+			for(int i = 0; i < size; i++) {
+				Infomation info = new Infomation();
+				info.setNo(in.readInt());
+				info.setName(in.readUTF());
+				info.setNum(in.readInt());
+				info.setMail(in.readUTF());
+				info.setAdd(in.readUTF());
+				info.setPhoto(in.readUTF());
+				info.setPhone(in.readUTF());
+				info.setRegisteredDate(Date.valueOf(in.readUTF()));
+				infoList.add(info);
+			}
 			System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", infoList.size());
 
 		} catch (IOException e) {
@@ -183,26 +215,44 @@ public class App {
 	}
 
 	private static void saveInfoData() {
-		File file = new File("./info.json");
+		File file = new File("./info.data");
 
-		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){
-
-			out.write(new Gson().toJson(infoList));
+		try (DataOutputStream out =
+				new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
+			out.writeInt(infoList.size());
+			for(Infomation info : infoList) {
+				out.writeInt(info.getNo());
+				out.writeUTF(info.getName());
+				out.writeInt(info.getNum());
+				out.writeUTF(info.getMail());
+				out.writeUTF(info.getAdd());
+				out.writeUTF(info.getPhoto());
+				out.writeUTF(info.getPhone());
+				out.writeUTF(info.getRegisteredDate().toString());
+			}
 			 System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", infoList.size());
 
 		} catch (IOException e) {
 			System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
-
 		}  
 	}
-
-
 	private static void loadAnimalData() {
-		File file = new File("./animal.json");
+		File file = new File("./animal.data");
 
-		try (BufferedReader in = new BufferedReader(new FileReader(file))){
-					
-			animalList.addAll(Arrays.asList(new Gson().fromJson(in,Animal[].class)));
+		try (DataInputStream in = 
+				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
+			int size = in.readInt();
+			for(int i = 0; i < size; i++) {
+				Animal animal = new Animal();
+				animal.setNo(in.readInt());
+				animal.setName(in.readUTF());
+				animal.setText(in.readUTF());
+				animal.setChoose(in.readInt());
+				animal.setNum(in.readUTF());
+				animal.setDate(Date.valueOf(in.readUTF()));
+				animal.setViewCount(in.readInt());
+				animalList.add(animal);
+			}
 			System.out.printf("총 %d 개의 동물 데이터를 로딩했습니다.\n", animalList.size());
 
 		} catch (IOException e) {
@@ -211,10 +261,20 @@ public class App {
 	}
 
 	private static void saveAnimalData() {
-		File file = new File("./animal.json");
+		File file = new File("./animal.data");
 
-		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){ 
-				out.write(new Gson().toJson(animalList));
+		try (DataOutputStream out = 
+				new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){ 
+				out.writeInt(animalList.size());
+				for(Animal animal : animalList) {
+					out.writeInt(animal.getNo());
+					out.writeUTF(animal.getName());
+					out.writeUTF(animal.getText());
+					out.writeInt(animal.getChoose());
+					out.writeUTF(animal.getNum());
+					out.writeUTF(animal.getDate().toString());
+					out.writeInt(animal.getViewCount());
+				}
 			System.out.printf("총 %d 개의 동물 데이터를 저장했습니다.\n", animalList.size());
 
 		} catch (IOException e) {

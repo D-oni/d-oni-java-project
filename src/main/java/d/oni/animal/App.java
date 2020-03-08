@@ -1,5 +1,7 @@
 package d.oni.animal;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -143,7 +145,7 @@ public class App {
 
 		File file = new File("./board.json");
 
-		try (FileReader in = new FileReader(file)){
+		try (BufferedReader in = new BufferedReader(new FileReader(file))){
 
 			boardList.addAll(Arrays.asList(new Gson().fromJson(in,Board[].class)));
 			System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
@@ -156,7 +158,7 @@ public class App {
 
 		File file = new File("./board.json");
 
-		try (FileWriter out = new FileWriter(file)){
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){
 			out.write(new Gson().toJson(boardList));
 			System.out.printf("총 %d개의 게시물 데이터를 저장했습니다.\n",boardList.size());
 
@@ -169,7 +171,7 @@ public class App {
 
 		File file = new File("./info.json");
 
-		try(FileReader in = new FileReader(file)) {
+		try(BufferedReader in = new BufferedReader(new FileReader(file))){
 
 			infoList.addAll(Arrays.asList(new Gson().fromJson(in,Infomation[].class)));
 
@@ -183,7 +185,7 @@ public class App {
 	private static void saveInfoData() {
 		File file = new File("./info.json");
 
-		try(FileWriter out = new FileWriter(file)) {
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){
 
 			out.write(new Gson().toJson(infoList));
 			 System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", infoList.size());
@@ -198,7 +200,7 @@ public class App {
 	private static void loadAnimalData() {
 		File file = new File("./animal.json");
 
-		try (FileReader in = new FileReader(file)){
+		try (BufferedReader in = new BufferedReader(new FileReader(file))){
 					
 			animalList.addAll(Arrays.asList(new Gson().fromJson(in,Animal[].class)));
 			System.out.printf("총 %d 개의 동물 데이터를 로딩했습니다.\n", animalList.size());
@@ -211,7 +213,7 @@ public class App {
 	private static void saveAnimalData() {
 		File file = new File("./animal.json");
 
-		try (FileWriter out = new FileWriter(file)){
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(file))){ 
 				out.write(new Gson().toJson(animalList));
 			System.out.printf("총 %d 개의 동물 데이터를 저장했습니다.\n", animalList.size());
 

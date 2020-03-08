@@ -1,41 +1,35 @@
-# 직렬화와 역직렬화를 이용하여 객체를 통째로 읽고 쓰기
+# `Observer` 디자인 패턴을 적용하여 클래스 구조를 변경
 
-- 객체를 직렬화하여 출력하고 역직렬화 하여 읽어 들인다.
-- `java.io.Serializable` 인터페이스와 `serialVersionUID` 스태틱 변수의 용도의 이해한다. 
+- 옵저버 호출 규칙을 정의.
+- 옵저버 구현체를 등록하고 제거하는 메서드를 추가.
+- 특정 상태에서 옵저버를 호출.
 
 ## 소스 및 결과
 
+- src/main/java/d/oni/context/ApplicationContextListener.java 추가
 - src/main/java/d/oni/animal/App.java 변경
-- src/main/java/d/oni/animal/domain/Animal.java 변경
-- src/main/java/d/oni/animal/domain/Infomation.java 변경
-- src/main/java/d/oni/animal/domain/Board.java 변경
 
+## 실습  
 
-### 1. 객체 단위로 읽고 출력하라.
+### 1. App 클래스의 스태틱 필드와 메서드를 인스턴스 멤버로 전환한다.
 
-- Animal.java
-    - `java.io.Serializable` 인터페이스를 구현한다.
-    - `serialVersionUID` 스태틱 변수의 값을 설정한다.
-- Infomation.java
-    - `java.io.Serializable` 인터페이스를 구현한다.
-    - `serialVersionUID` 스태틱 변수의 값을 설정한다.
-- Board.java
-    - `java.io.Serializable` 인터페이스를 구현한다.
-    - `serialVersionUID` 스태틱 변수의 값을 설정한다.
 - App.java 
-    - 파일에서 데이터를 읽을 때 ObjectInputStream을 사용한다.
-    - 파일에서 데이터를 쓸 때 ObjectOutputStream을 사용한다.
+  - 스태틱 필드와 스태틱 메서드를 인스턴스 필드와 인스턴스 메서드로 전환한다.
+  - 보통 실무에서는 클래스의 일반적인 구조로 인스턴스 필드와 메서드를 사용한다.
+
+### 2. 애플리케이션이 시작하거나 종료될 때 호출될 옵저버의 규칙을 정의한다.
+
+- ApplicationContextListener.java
+    - Observer가 갖춰야 할 규칙을 정의한다.
+    - 애플리케이션이 시작할 때 자동으로 호출할 메서드의 규칙을 정의한다.
+    - 애플리케이션을 종료하기 전에 자동으로 호출할 메서드의 규칙을 정의한다.
 
 
-`App`의 실행 결과는 이전 버전과 같다.
-
-### 2. ArrayList/LinkedList 객체를 통째로 읽고 출력하라.
+### 3. App 객체에 옵저버를 등록하고 제거하고 실행시키는 기능을 추가한다.
 
 - App.java
-    - `java.io.Serializable` 구현체라면 직렬화/역직렬화가 가능하다.
-    - 따라서 ArrayList, LinkedList 객체를 통째로 읽고 쓸 수 있다.
-
-#### 실행 결과
-
-`App`의 실행 결과는 이전 버전과 같다.
+  - 옵저버를 등록하는 메서드를 추가한다.
+  - 옵저버를 제거하는 메서드를 추가한다.
+  - 애플리케이션을 시작할 때 옵저버를 호출한다.
+  - 애플리케이션을 종료할 때 옵저버를 호출한다.
 

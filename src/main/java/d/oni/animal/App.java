@@ -1,6 +1,7 @@
 package d.oni.animal;
 
 import java.io.BufferedInputStream;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,12 +13,15 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 
+import d.oni.animal.context.ApplicationContextListener;
 import d.oni.animal.domain.Animal;
 import d.oni.animal.domain.Board;
 import d.oni.animal.domain.Infomation;
@@ -40,16 +44,47 @@ import d.oni.animal.handler.InfoUpdateCommand;
 import d.oni.animal.util.Prompt;
 public class App {
 
-	static Scanner keyboard = new Scanner(System.in);
+	Scanner keyboard = new Scanner(System.in);
 
-	static Deque<String> commandStack = new ArrayDeque<>();
-	static Queue<String> commandQueue = new LinkedList<>();
+	Deque<String> commandStack = new ArrayDeque<>();
+	Queue<String> commandQueue = new LinkedList<>();
 
-	static List<Animal> animalList = new ArrayList<>();
-	static List<Board> boardList = new ArrayList<>();
-	static List<Infomation> infoList = new ArrayList<>();
+	List<Animal> animalList = new ArrayList<>();
+	List<Board> boardList = new ArrayList<>();
+	List<Infomation> infoList = new ArrayList<>();
 
-	public static void main(String[] args) {
+	  // 옵저버 목록을 관리할 객체 준비
+	  // - 같은 인스턴스를 중복해서 등록하지 않도록 한다.
+	  // - Set은 등록 순서를 따지지 않는다.
+	  Set<ApplicationContextListener> listeners = new HashSet<>();
+
+	  // 옵저버를 등록하는 메서드이다.
+	  public void addApplicationContextListener(ApplicationContextListener listener) {
+	    listeners.add(listener);
+	  }
+
+	  // 옵저버를 제거하는 메서드이다.
+	  public void removeApplicationContextListener(ApplicationContextListener listener) {
+	    listeners.remove(listener);
+	  }
+
+	  // 애플리케이션이 시작되면, 등록된 리스너에게 알린다.
+	  private void notifyApplicationInitialized() {
+	    for (ApplicationContextListener listener : listeners) {
+	      listener.contextInitialized();
+	    }
+	  }
+
+	  // 애플리케이션이 종료되면, 등록된 리스너에게 알린다.
+	  private void notifyApplicationDestroyed() {
+	    for (ApplicationContextListener listener : listeners) {
+	      listener.contextDestroyed();
+	    }
+	  }
+
+	public void service() {
+
+		notifyApplicationInitialized();
 
 		loadAnimalData();
 		loadInfoData();
@@ -122,8 +157,11 @@ public class App {
 		saveInfoData();
 		saveBoardData();
 
+		notifyApplicationDestroyed();
+
 	}
-	private static void printCommandHistory(Iterator<String> iterator) {
+	
+	private void printCommandHistory(Iterator<String> iterator) {
 		int count = 0;
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next());
@@ -141,7 +179,7 @@ public class App {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void loadBoardData() {
+	private void loadBoardData() {
 		File file = new File("./board.ser2");
 
 		try (ObjectInputStream in = 
@@ -153,7 +191,7 @@ public class App {
 			System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
 		} 
 	}
-	private static void saveBoardData() {
+	private void saveBoardData() {
 
 		File file = new File("./board.ser2");
 
@@ -167,13 +205,13 @@ public class App {
 		} 
 	}
 	@SuppressWarnings("unchecked")
-	private static void loadInfoData() {
+	private void loadInfoData() {
 
 		File file = new File("./info.ser2");
 
 		try(ObjectInputStream in =
 				new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))){
-				infoList = (List<Infomation>) in.readObject();
+			infoList = (List<Infomation>) in.readObject();
 			System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", infoList.size());
 
 		} catch (Exception e) {
@@ -181,25 +219,25 @@ public class App {
 		} 
 	}
 
-	private static void saveInfoData() {
+	private void saveInfoData() {
 		File file = new File("./info.ser2");
 
 		try (ObjectOutputStream out =
 				new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
 			out.writeObject(infoList);
-			 System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", infoList.size());
+			System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", infoList.size());
 
 		} catch (IOException e) {
 			System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
 		}  
 	}
 	@SuppressWarnings("unchecked")
-	private static void loadAnimalData() {
+	private void loadAnimalData() {
 		File file = new File("./animal.ser2");
 
 		try (ObjectInputStream in = 
 				new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))){
-				animalList = (List<Animal>) in.readObject();
+			animalList = (List<Animal>) in.readObject();
 			System.out.printf("총 %d 개의 동물 데이터를 로딩했습니다.\n", animalList.size());
 
 		} catch (Exception e) {
@@ -207,17 +245,21 @@ public class App {
 		} 
 	}
 
-	private static void saveAnimalData() {
+	private void saveAnimalData() {
 		File file = new File("./animal.ser2");
 
 		try (ObjectOutputStream out = 
 				new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){ 
-				out.writeObject(animalList);
+			out.writeObject(animalList);
 			System.out.printf("총 %d 개의 동물 데이터를 저장했습니다.\n", animalList.size());
 
 		} catch (IOException e) {
 			System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
 
 		} 
+	}
+	public static void main(String[] args) {
+		App app = new App();
+		app.service();
 	}
 }

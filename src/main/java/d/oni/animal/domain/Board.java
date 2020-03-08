@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Board implements Serializable {    
+	
 	private static final long serialVersionUID = 20200131L; 
  
 private int num;
@@ -12,14 +13,6 @@ private int num;
   private Date date;
   private int viewCount;
   private String writer;
-  
-  public String getWriter() {
-	return writer;
-}
-
-public void setWriter(String writer) {
-	this.writer = writer;
-}
 
 public static Board valueOf(String csv) {
 
@@ -109,6 +102,14 @@ public void setViewCount(int viewCount) {
   }
   public void setScrap(int scrap) {
     this.scrap = scrap;
+  }
+  
+  public String getWriter() {
+	  return writer;
+  }
+  
+  public void setWriter(String writer) {
+	  this.writer = writer;
   }
 
 }

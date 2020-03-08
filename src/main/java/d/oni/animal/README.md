@@ -1,35 +1,53 @@
-# `Observer` 디자인 패턴을 적용하여 클래스 구조를 변경
+# 애플리케이션을 시작하거나 종료할 때 데이터를 로딩하고 저장할 옵저버를 추가한다.
 
-- 옵저버 호출 규칙을 정의.
-- 옵저버 구현체를 등록하고 제거하는 메서드를 추가.
-- 특정 상태에서 옵저버를 호출.
+- 옵저버 디자인 패턴에 따라 옵저버를 정의
 
 ## 소스 및 결과
 
-- src/main/java/d/oni/context/ApplicationContextListener.java 추가
+- src/main/java/d/oni/animal/DataLoaderListener.java 추가
 - src/main/java/d/oni/animal/App.java 변경
 
 ## 실습  
 
-### 1. App 클래스의 스태틱 필드와 메서드를 인스턴스 멤버로 전환한다.
+### 1. 애플리케이션을 시작하거나 종료할 때 작업을 수행할 옵저버를 만든다.
 
-- App.java 
-  - 스태틱 필드와 스태틱 메서드를 인스턴스 필드와 인스턴스 메서드로 전환한다.
-  - 보통 실무에서는 클래스의 일반적인 구조로 인스턴스 필드와 메서드를 사용한다.
+- DataLoaderListener.java 추가 
 
-### 2. 애플리케이션이 시작하거나 종료될 때 호출될 옵저버의 규칙을 정의한다.
+### 2. DataLoaderListener 옵저버를 App 객체에 등록한 후 실행되는 걸 확인한다.
 
-- ApplicationContextListener.java
-    - Observer가 갖춰야 할 규칙을 정의한다.
-    - 애플리케이션이 시작할 때 자동으로 호출할 메서드의 규칙을 정의한다.
-    - 애플리케이션을 종료하기 전에 자동으로 호출할 메서드의 규칙을 정의한다.
+- App.java 변경 
+  - DataLoaderListener 객체를 생성한 후 App 객체에 등록한다.
+  - 실행하여 옵저버가 동작하는 지를 확인한다.
+    
 
+### 3. DataLoaderListener 옵저버에서 데이터를 로딩하고 저장하게 한다.
 
-### 3. App 객체에 옵저버를 등록하고 제거하고 실행시키는 기능을 추가한다.
+- DataLoaderListener.java 변경 
+  - App 클래스에 있는 List 객체를 이 클래스로 옮긴다.
+  - App 클래스에 있는 데이터 로딩, 저장 관련 메서드를 이 클래스로 옮긴다.
+  
+- App.java 변경 (계속 작업 중)
+  - List 객체를 필드에서 제거한다.(DataLoaderListener가 할 일이다.)
+  - 데이터 로딩, 저장 관련 메서드를 제거한다.(DataLoaderListener가 할 일이다.)
+  - 데이터 로딩 호출 코드를 제거한다.(DataLoaderListener가 할 일이다.)
+  - 데이터 저장 호출 코드를 제거한다.(DataLoaderListener가 할 일이다.)
 
-- App.java
-  - 옵저버를 등록하는 메서드를 추가한다.
-  - 옵저버를 제거하는 메서드를 추가한다.
-  - 애플리케이션을 시작할 때 옵저버를 호출한다.
-  - 애플리케이션을 종료할 때 옵저버를 호출한다.
+### 4. App 클래스가 옵저버의 결과물을 사용할 수 있게 한다.
+
+ApplicationContextListener.java (변경)
+  - contextInitialized()에 Map 파라미터를 추가한다.
+  - contextDestroyed()에 Map 파라미터를 추가한다.
+
+### 5. DataLoaderListener의 작업 결과를 Map 객체를 통해 공유한다.
+
+DataLoaderListener.java (변경)
+  - 데이터 로딩 결과를 Map 객체에 보관한다.
+
+### 6. DataLoaderListener에서 준비한 List 객체를 Command에게 전달한다.
+
+App.java (변경)
+  - 애플리케이션이 시작될 때 옵저버를 실행한 후 Map 에 저장된 작업 결과를 꺼내
+    Command 객체에 전달한다.
+    
+
 

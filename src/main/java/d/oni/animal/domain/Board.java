@@ -1,8 +1,10 @@
 package d.oni.animal.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Board { 
+public class Board implements Serializable {    
+	private static final long serialVersionUID = 20200131L; 
  
 private int num;
   private String text;

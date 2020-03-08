@@ -2,13 +2,12 @@ package d.oni.animal;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -141,140 +140,79 @@ public class App {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void loadBoardData() {
+		File file = new File("./board.ser2");
 
-		File file = new File("./board.data");
-
-		try (DataInputStream in = 
-				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
-			int size = in.readInt();
-			for(int i = 0; i < size; i++) {
-				Board board = new Board();
-				board.setNum(in.readInt());
-				board.setText(in.readUTF());
-				board.setScrap(in.readInt());
-				board.setDate(Date.valueOf(in.readUTF()));
-				board.setViewCount(in.readInt());
-				String writer = in.readUTF();
-				if(writer.length() > 0) {
-					board.setWriter(writer);
-				}
-				boardList.add(board);
-			}
+		try (ObjectInputStream in = 
+				new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))){
+			boardList = (List<Board>) in.readObject();
 			System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
 		} 
 	}
 	private static void saveBoardData() {
 
-		File file = new File("./board.data");
+		File file = new File("./board.ser2");
 
-		try (DataOutputStream out 
-				= new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
-			out.write(boardList.size());
-			for(Board board : boardList) {
-				out.writeInt(board.getNum());
-				out.writeUTF(board.getText());
-				out.writeInt(board.getScrap());
-				out.writeUTF(board.getDate().toString());
-				out.writeInt(board.getViewCount());
-			}
+		try (ObjectOutputStream out 
+				= new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
+			out.writeObject(boardList);
 			System.out.printf("총 %d개의 게시물 데이터를 저장했습니다.\n",boardList.size());
 
 		} catch (IOException e) {
 			System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
-
 		} 
 	}
+	@SuppressWarnings("unchecked")
 	private static void loadInfoData() {
 
-		File file = new File("./info.data");
+		File file = new File("./info.ser2");
 
-		try(DataInputStream in =
-				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
-			int size = in.readInt();
-			for(int i = 0; i < size; i++) {
-				Infomation info = new Infomation();
-				info.setNo(in.readInt());
-				info.setName(in.readUTF());
-				info.setNum(in.readInt());
-				info.setMail(in.readUTF());
-				info.setAdd(in.readUTF());
-				info.setPhoto(in.readUTF());
-				info.setPhone(in.readUTF());
-				info.setRegisteredDate(Date.valueOf(in.readUTF()));
-				infoList.add(info);
-			}
+		try(ObjectInputStream in =
+				new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))){
+				infoList = (List<Infomation>) in.readObject();
 			System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", infoList.size());
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
 		} 
 	}
 
 	private static void saveInfoData() {
-		File file = new File("./info.data");
+		File file = new File("./info.ser2");
 
-		try (DataOutputStream out =
-				new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
-			out.writeInt(infoList.size());
-			for(Infomation info : infoList) {
-				out.writeInt(info.getNo());
-				out.writeUTF(info.getName());
-				out.writeInt(info.getNum());
-				out.writeUTF(info.getMail());
-				out.writeUTF(info.getAdd());
-				out.writeUTF(info.getPhoto());
-				out.writeUTF(info.getPhone());
-				out.writeUTF(info.getRegisteredDate().toString());
-			}
+		try (ObjectOutputStream out =
+				new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){
+			out.writeObject(infoList);
 			 System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", infoList.size());
 
 		} catch (IOException e) {
 			System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
 		}  
 	}
+	@SuppressWarnings("unchecked")
 	private static void loadAnimalData() {
-		File file = new File("./animal.data");
+		File file = new File("./animal.ser2");
 
-		try (DataInputStream in = 
-				new DataInputStream(new BufferedInputStream(new FileInputStream(file)))){
-			int size = in.readInt();
-			for(int i = 0; i < size; i++) {
-				Animal animal = new Animal();
-				animal.setNo(in.readInt());
-				animal.setName(in.readUTF());
-				animal.setText(in.readUTF());
-				animal.setChoose(in.readInt());
-				animal.setNum(in.readUTF());
-				animal.setDate(Date.valueOf(in.readUTF()));
-				animal.setViewCount(in.readInt());
-				animalList.add(animal);
-			}
+		try (ObjectInputStream in = 
+				new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))){
+				animalList = (List<Animal>) in.readObject();
 			System.out.printf("총 %d 개의 동물 데이터를 로딩했습니다.\n", animalList.size());
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
 		} 
 	}
 
 	private static void saveAnimalData() {
-		File file = new File("./animal.data");
+		File file = new File("./animal.ser2");
 
-		try (DataOutputStream out = 
-				new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){ 
-				out.writeInt(animalList.size());
-				for(Animal animal : animalList) {
-					out.writeInt(animal.getNo());
-					out.writeUTF(animal.getName());
-					out.writeUTF(animal.getText());
-					out.writeInt(animal.getChoose());
-					out.writeUTF(animal.getNum());
-					out.writeUTF(animal.getDate().toString());
-					out.writeInt(animal.getViewCount());
-				}
+		try (ObjectOutputStream out = 
+				new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))){ 
+				out.writeObject(animalList);
 			System.out.printf("총 %d 개의 동물 데이터를 저장했습니다.\n", animalList.size());
 
 		} catch (IOException e) {

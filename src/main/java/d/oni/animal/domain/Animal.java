@@ -1,8 +1,10 @@
 package d.oni.animal.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Animal{    //public:다른 패키지에서  사용 할 수 있게 하는 공개 클래스
+public class Animal implements Serializable {    
+	private static final long serialVersionUID = 20200131L;
     private int no;  //공개 변수
     private String name;
     private String text;
